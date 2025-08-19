@@ -1,118 +1,129 @@
-import streamlit as st
 import json
-import os
-import time
+import streamlit as st
+from pathlib import Path
 
-# File where knowledge will be stored
-DB_FILE = "packaging_db.json"
+DB_PATH = Path("packaging_knowledge.json")
 
-# Load existing knowledge
-def load_knowledge():
-    if os.path.exists(DB_FILE):
-        with open(DB_FILE, "r", encoding="utf-8") as f:
+# Load database
+def load_db():
+    if DB_PATH.exists():
+        with open(DB_PATH, "r") as f:
             return json.load(f)
     return {}
 
-# Save knowledge to file
-def save_knowledge(knowledge):
-    with open(DB_FILE, "w", encoding="utf-8") as f:
-        json.dump(knowledge, f, indent=4, ensure_ascii=False)
+# Save database
+def save_db(db):
+    with open(DB_PATH, "w") as f:
+        json.dump(db, f, indent=4)
 
-# Initialize knowledge base
-if "knowledge_base" not in st.session_state:
-    st.session_state.knowledge_base = load_knowledge()
+# ---- Custom CSS for Classy Look ----
+st.markdown("""
+<style>
+body {
+    background: #f8f9fa;
+    font-family: 'Segoe UI', sans-serif;
+}
+.stApp {
+    background: linear-gradient(135deg, #f0f2f6, #e4ebf5);
+}
+.big-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+    padding-bottom: 10px;
+}
+.success-box {
+    background: #eafaf1;
+    border-left: 5px solid #2ecc71;
+    padding: 10px;
+    border-radius: 8px;
+}
+.warning-box {
+    background: #fff3cd;
+    border-left: 5px solid #ffbb33;
+    padding: 10px;
+    border-radius: 8px;
+}
+</style>
+""", unsafe_allow_html=True)
 
-# 🎨 Fancy Title with animation
-st.markdown(
-    "<h1 style='text-align: center; color: #FF6F61;'>✨📦 AI Packaging Advisor with Memory ✨</h1>",
-    unsafe_allow_html=True
-)
+# --- Main Title ---
+st.markdown("<div class='big-title'>📦 Packaging Knowledge Manager</div>", unsafe_allow_html=True)
 
-# ================= MAIN PAGE =================
-st.subheader("📝 Product Input")
+# --- Sidebar ---
+st.sidebar.title("⚙️ Knowledge Manager")
+mode = st.sidebar.radio("Choose Action:", ["View Database", "Add Knowledge", "Edit Knowledge", "Auto-Categorize"])
 
-product_name = st.text_input("💡 Enter your Product Name")
-product_desc = st.text_area("🧾 Enter Product Description")
-packaging_type = st.selectbox(
-    "📦 Select Packaging Type",
-    ["Transportation 🚚", "Storage 📦", "Retail 🛍️", "Export 🌍"]
-)
+# Load DB
+db = load_db()
 
-# --- Auto Categorize ---
-def categorize_product(description):
-    desc = description.lower()
-    if any(word in desc for word in ["food", "snack", "beverage", "drink", "fruit", "vegetable"]):
-        return "🥗 Food & Beverages"
-    elif any(word in desc for word in ["mobile", "electronics", "gadget", "laptop", "device"]):
-        return "📱 Electronics"
-    elif any(word in desc for word in ["bottle", "liquid", "oil", "juice", "shampoo"]):
-        return "🧴 Liquids"
-    elif any(word in desc for word in ["glass", "ceramic", "fragile", "delicate"]):
-        return "🍷 Fragile Items"
-    elif any(word in desc for word in ["metal", "tools", "hardware", "machine"]):
-        return "⚙️ Industrial Goods"
+# --- View Mode ---
+if mode == "View Database":
+    st.subheader("📖 Current Knowledge Base")
+    if db:
+        st.json(db)
     else:
-        return "📦 General Products"
+        st.markdown("<div class='warning-box'>⚠️ Database is empty.</div>", unsafe_allow_html=True)
 
-if product_desc:
-    category = categorize_product(product_desc)
-    st.success(f"🔍 Auto-detected category: **{category}**")
-else:
-    category = None
+# --- Add Mode ---
+elif mode == "Add Knowledge":
+    st.subheader("➕ Add New Packaging Material")
+    name = st.text_input("📌 Packaging Material Name")
+    props = st.text_area("📝 Properties")
+    best_for = st.text_input("🎯 Best For (comma separated)").split(",")
+    cost = st.number_input("💰 Cost per unit", min_value=0)
+    emoji = st.text_input("✨ Icon/Emoji (optional)", value="📦")
+    category = st.selectbox("📦 Category Level", ["Primary", "Secondary", "Tertiary"])
 
-# --- Suggest Packaging ---
-if st.button("🚀 Suggest Packaging"):
-    if not product_name or not product_desc:
-        st.error("⚠️ Please enter both product name and description.")
+    if st.button("💾 Save"):
+        db[name] = {
+            "properties": props,
+            "best_for": [x.strip() for x in best_for if x],
+            "cost_per_unit": cost,
+            "emoji": emoji,
+            "category_level": category
+        }
+        save_db(db)
+        st.markdown(f"<div class='success-box'>✅ {name} added successfully!</div>", unsafe_allow_html=True)
+
+# --- Edit Mode ---
+elif mode == "Edit Knowledge":
+    st.subheader("✏️ Edit Existing Material")
+    if db:
+        material = st.selectbox("Select material to edit", list(db.keys()))
+        if material:
+            entry = db[material]
+            props = st.text_area("📝 Properties", entry["properties"])
+            best_for = st.text_input("🎯 Best For (comma separated)", ",".join(entry["best_for"]))
+            cost = st.number_input("💰 Cost per unit", min_value=0, value=entry["cost_per_unit"])
+            emoji = st.text_input("✨ Icon/Emoji", entry.get("emoji", "📦"))
+            category = st.selectbox("📦 Category Level", ["Primary", "Secondary", "Tertiary"], index=["Primary", "Secondary", "Tertiary"].index(entry["category_level"]))
+
+            if st.button("🔄 Update"):
+                db[material] = {
+                    "properties": props,
+                    "best_for": [x.strip() for x in best_for.split(",") if x],
+                    "cost_per_unit": cost,
+                    "emoji": emoji,
+                    "category_level": category
+                }
+                save_db(db)
+                st.markdown(f"<div class='success-box'>✏️ {material} updated successfully!</div>", unsafe_allow_html=True)
     else:
-        # 🎉 Fun animation
-        st.balloons()
-        with st.spinner("Thinking 🤔..."):
-            time.sleep(2)
+        st.markdown("<div class='warning-box'>⚠️ Database is empty.</div>", unsafe_allow_html=True)
 
-        st.subheader("📌 Suggested Packaging:")
-        st.write(f"**🛒 Product Category:** {category}")
-        st.write(f"**📦 Packaging Type Chosen:** {packaging_type}")
-
-        if st.session_state.knowledge_base:
-            for material, details in st.session_state.knowledge_base.items():
-                st.markdown(f"- 🎁 **{material}** → {details}")
+# --- Auto-Categorization ---
+elif mode == "Auto-Categorize":
+    st.subheader("🤖 Auto-Categorize Product")
+    product = st.text_input("Enter product name (e.g. Milk, Shoes, Electronics)")
+    if st.button("🔍 Categorize"):
+        # Simple rule-based logic (you can later replace with ML)
+        if "bottle" in product.lower() or "pouch" in product.lower():
+            st.success(f"{product} → Primary Packaging 🍼")
+        elif "box" in product.lower() or "carton" in product.lower():
+            st.success(f"{product} → Secondary Packaging 📦")
+        elif "pallet" in product.lower() or "crate" in product.lower():
+            st.success(f"{product} → Tertiary Packaging 🛳️")
         else:
-            st.info("🤖 I don’t know any packaging materials yet. Please teach me first!")
-
-# ================= SIDEBAR =================
-st.sidebar.header("🧑‍🏫 Teach the System")
-
-new_material = st.sidebar.text_input("✨ Packaging Material Name (e.g., Multilayer Laminate, Corrugated Board)")
-new_details = st.sidebar.text_area("📘 Define Properties & Best Use Cases")
-
-if st.sidebar.button("💾 Teach"):
-    if new_material and new_details:
-        st.session_state.knowledge_base[new_material] = new_details
-        save_knowledge(st.session_state.knowledge_base)
-        st.sidebar.success(f"✅ Taught system about: {new_material}")
-        st.sidebar.snow()
-    else:
-        st.sidebar.warning("⚠️ Please provide both material name and details.")
-
-# --- 📂 View Database Section ---
-st.sidebar.header("📂 My Packaging Knowledge Base")
-
-if st.session_state.knowledge_base:
-    for material, details in st.session_state.knowledge_base.items():
-        with st.sidebar.expander(f"🎁 {material}"):
-            st.write(details)
-
-    # 👀 JSON Viewer
-    st.sidebar.subheader("🔎 Full Database (JSON Viewer)")
-    st.sidebar.json(st.session_state.knowledge_base)
-
-    # ⬇️ Download Button
-    st.sidebar.download_button(
-        label="⬇️ Download Database Backup",
-        data=json.dumps(st.session_state.knowledge_base, indent=4, ensure_ascii=False),
-        file_name="packaging_db_backup.json",
-        mime="application/json"
-    )
-else:
-    st.sidebar.info("📭 No packaging materials taught yet.")
+            st.warning(f"Could not auto-categorize {product}. Please add rules or data.")
