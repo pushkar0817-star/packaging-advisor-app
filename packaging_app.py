@@ -18,34 +18,34 @@ def save_db(db):
 
 # ---- Custom CSS for Classy Look ----
 st.markdown("""
-<style>
-body {
-    background: #f8f9fa;
-    font-family: 'Segoe UI', sans-serif;
-}
-.stApp {
-    background: linear-gradient(135deg, #f0f2f6, #e4ebf5);
-}
-.big-title {
-    font-size: 32px;
-    font-weight: bold;
-    color: #2c3e50;
-    text-align: center;
-    padding-bottom: 10px;
-}
-.success-box {
-    background: #eafaf1;
-    border-left: 5px solid #2ecc71;
-    padding: 10px;
-    border-radius: 8px;
-}
-.warning-box {
-    background: #fff3cd;
-    border-left: 5px solid #ffbb33;
-    padding: 10px;
-    border-radius: 8px;
-}
-</style>
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .stApp {
+            background: linear-gradient(135deg, #f0f2f6, #e4ebf5);
+        }
+        .big-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            padding-bottom: 10px;
+        }
+        .success-box {
+            background: #eafaf1;
+            border-left: 5px solid #2ecc71;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffbb33;
+            padding: 10px;
+            border-radius: 8px;
+        }
+    </style>
 """, unsafe_allow_html=True)
 
 # --- Main Title ---
@@ -53,7 +53,7 @@ st.markdown("<div class='big-title'>📦 Packaging Knowledge Manager</div>", uns
 
 # --- Sidebar ---
 st.sidebar.title("⚙️ Knowledge Manager")
-mode = st.sidebar.radio("Choose Action:", ["View Database", "Add Knowledge", "Edit Knowledge", "Auto-Categorize"])
+mode = st.sidebar.radio("Choose Action:", ["View Database", "Add Knowledge", "Edit Knowledge"])
 
 # Load DB
 db = load_db()
@@ -74,15 +74,13 @@ elif mode == "Add Knowledge":
     best_for = st.text_input("🎯 Best For (comma separated)").split(",")
     cost = st.number_input("💰 Cost per unit", min_value=0)
     emoji = st.text_input("✨ Icon/Emoji (optional)", value="📦")
-    category = st.selectbox("📦 Category Level", ["Primary", "Secondary", "Tertiary"])
 
     if st.button("💾 Save"):
         db[name] = {
             "properties": props,
             "best_for": [x.strip() for x in best_for if x],
             "cost_per_unit": cost,
-            "emoji": emoji,
-            "category_level": category
+            "emoji": emoji
         }
         save_db(db)
         st.markdown(f"<div class='success-box'>✅ {name} added successfully!</div>", unsafe_allow_html=True)
@@ -98,32 +96,15 @@ elif mode == "Edit Knowledge":
             best_for = st.text_input("🎯 Best For (comma separated)", ",".join(entry["best_for"]))
             cost = st.number_input("💰 Cost per unit", min_value=0, value=entry["cost_per_unit"])
             emoji = st.text_input("✨ Icon/Emoji", entry.get("emoji", "📦"))
-            category = st.selectbox("📦 Category Level", ["Primary", "Secondary", "Tertiary"], index=["Primary", "Secondary", "Tertiary"].index(entry["category_level"]))
 
             if st.button("🔄 Update"):
                 db[material] = {
                     "properties": props,
                     "best_for": [x.strip() for x in best_for.split(",") if x],
                     "cost_per_unit": cost,
-                    "emoji": emoji,
-                    "category_level": category
+                    "emoji": emoji
                 }
                 save_db(db)
                 st.markdown(f"<div class='success-box'>✏️ {material} updated successfully!</div>", unsafe_allow_html=True)
     else:
         st.markdown("<div class='warning-box'>⚠️ Database is empty.</div>", unsafe_allow_html=True)
-
-# --- Auto-Categorization ---
-elif mode == "Auto-Categorize":
-    st.subheader("🤖 Auto-Categorize Product")
-    product = st.text_input("Enter product name (e.g. Milk, Shoes, Electronics)")
-    if st.button("🔍 Categorize"):
-        # Simple rule-based logic (you can later replace with ML)
-        if "bottle" in product.lower() or "pouch" in product.lower():
-            st.success(f"{product} → Primary Packaging 🍼")
-        elif "box" in product.lower() or "carton" in product.lower():
-            st.success(f"{product} → Secondary Packaging 📦")
-        elif "pallet" in product.lower() or "crate" in product.lower():
-            st.success(f"{product} → Tertiary Packaging 🛳️")
-        else:
-            st.warning(f"Could not auto-categorize {product}. Please add rules or data.")
