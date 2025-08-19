@@ -1,12 +1,48 @@
 {
-  "Multilayer Laminate PET12/Al7/PE60": "High oxygen & light barrier; typical for snacks/powders; PET(12µ) for print/rigidity, Al(7µ) barrier, PE(60µ) seal; not microwaveable.",
-  "Metallized BOPP 20µ": "Good moisture & light barrier for dry snacks; heat-sealable grade for fin-seal pouches.",
-  "BOPP Film 25µ": "Clear overwrap; good moisture barrier; used for bakery/candy wraps.",
-  "PET Bottle 250 ml (24/410)": "Food-grade, clear; suitable for beverages/cosmetics; pair with induction seal for leak protection.",
-  "HDPE Bottle 500 ml": "Opaque; chemical resistant; good for oils/detergents; avoid for high oxygen-sensitive foods.",
-  "Glass Jar 300 ml": "Zero OTR; premium look; heavy/fragile; needs protective secondary packaging.",
-  "Corrugated 3-ply (B flute)": "Economy transport cartons; light to medium loads; moderate stacking strength.",
-  "Corrugated 5-ply (BC flute)": "High stacking strength for transport/export; good for fragile/stacked loads.",
-  "Molded Pulp Tray": "Eco cushioning for electronics/cosmetics; recyclable; designed to product geometry.",
-  "Aluminum Can 330 ml": "Excellent barrier; beverages; requires canning line and seam integrity checks."
+  "categories": {
+    "Metals": {
+      "subcategories": ["Aluminum cans", "Steel drums", "Tinplate containers"]
+    },
+    "Glass": {
+      "subcategories": ["Glass bottles", "Jars", "Ampoules"]
+    },
+    "Paper": {
+      "subcategories": ["Corrugated boxes", "Paperboard cartons", "Kraft paper bags"]
+    },
+    "Polymers": {
+      "subcategories": ["PET bottles", "HDPE containers", "PP jars", "Flexible pouches"]
+    },
+    "Flutes": {
+      "types": ["A-Flute", "B-Flute", "C-Flute", "E-Flute"]
+    }
+  },
+  "packaging_levels": {
+    "Primary": {
+      "description": "Packaging that directly encloses the product to protect and contain it. It is in direct contact with the product.",
+      "examples": [
+        "Plastic bottle for soft drink",
+        "Blister pack for tablets",
+        "Tetra Pak for milk",
+        "Pouch for chips"
+      ]
+    },
+    "Secondary": {
+      "description": "Packaging that groups primary packages together for handling, branding, and display. Provides additional protection.",
+      "examples": [
+        "Paperboard carton holding toothpaste tubes",
+        "Shrink wrap around water bottles",
+        "Box of medicine blister packs",
+        "Carton for juice tetra packs"
+      ]
+    },
+    "Tertiary": {
+      "description": "Packaging used for bulk handling, storage, and transportation. Ensures safe delivery of secondary packages.",
+      "examples": [
+        "Corrugated fiberboard box for shipping",
+        "Wooden pallet with stretch wrap",
+        "Large corrugated cartons containing smaller cartons",
+        "Crates used in exports"
+      ]
+    }
+  }
 }
