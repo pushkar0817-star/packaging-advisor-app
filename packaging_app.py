@@ -17,78 +17,141 @@ def save_db(data):
 
 db = load_db()
 
-# --- UI ---
-st.set_page_config(page_title="📦 Packaging Advisor", layout="wide")
+# --- PAGE CONFIG ---
+st.set_page_config(page_title="⚡ Futuristic Packaging Advisor", layout="wide")
 
-st.title("📦 Packaging Advisor App")
+# --- CUSTOM CSS ---
+st.markdown("""
+<style>
+/* Background gradient */
+.stApp {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #E0E0E0;
+    font-family: 'Segoe UI', sans-serif;
+}
 
-tabs = st.tabs(["Product Advisor", "Teach Model", "Database Viewer"])
+/* Titles */
+h1, h2, h3 {
+    color: #00ffe7;
+    text-shadow: 0px 0px 15px #00ffe7;
+}
 
-# ---------------- PRODUCT ADVISOR TAB ----------------
-with tabs[0]:
-    st.header("🛒 Product Advisor")
+/* Cards */
+.block-container {
+    border-radius: 15px;
+    padding: 20px;
+}
 
-    product_name = st.text_input("Product Name", key="prod_name")
-    product_desc = st.text_area("Product Description", key="prod_desc")
-    packaging_type = st.selectbox(
-        "Packaging Type",
-        ["Primary", "Secondary", "Tertiary"],
-        key="pack_type"
-    )
+/* Input fields */
+.stTextInput>div>div>input,
+.stTextArea textarea {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid #00ffe7;
+    border-radius: 10px;
+    color: #fff;
+}
 
-    if st.button("Suggest Packaging", key="suggest_btn"):
+.stTextInput>div>div>input:focus,
+.stTextArea textarea:focus {
+    border: 1px solid #ff00ff;
+    box-shadow: 0px 0px 10px #ff00ff;
+}
+
+/* Buttons */
+.stButton>button {
+    background: linear-gradient(90deg, #00ffe7, #ff00ff);
+    color: black;
+    font-weight: bold;
+    border-radius: 12px;
+    padding: 10px 20px;
+    border: none;
+    transition: 0.3s;
+}
+.stButton>button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 15px #ff00ff;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+}
+</style>
+""", unsafe_allow_html=True)
+
+# --- SIDEBAR NAVIGATION ---
+st.sidebar.title("⚡ Navigation")
+page = st.sidebar.radio("Choose a section:", ["🛒 Product Advisor", "📚 Teach Model", "📂 Database Viewer"])
+
+# ---------------- PRODUCT ADVISOR ----------------
+if page == "🛒 Product Advisor":
+    st.title("🛒 Futuristic Product Advisor")
+
+    col1, col2 = st.columns(2)
+    with col1:
+        product_name = st.text_input("🔖 Product Name", key="prod_name")
+    with col2:
+        packaging_type = st.selectbox("📦 Packaging Type", ["Primary", "Secondary", "Tertiary"], key="pack_type")
+
+    product_desc = st.text_area("📝 Product Description", key="prod_desc", height=150)
+
+    if st.button("🚀 Suggest Packaging", key="suggest_btn"):
         if product_name and product_desc:
-            st.success(f"✅ Suggested packaging for **{product_name}**:")
-            
-            # Simple placeholder logic
+            st.success(f"✨ Suggested packaging for **{product_name}**:")
+
             if "fragile" in product_desc.lower():
-                st.write("🫙 Glass with cushioning + Corrugated box")
+                st.markdown("🫙 **Glass** with protective cushioning → 📦 Corrugated Box")
             elif "food" in product_desc.lower():
-                st.write("🥫 Multilayer laminates or Plastic films")
+                st.markdown("🥫 **Multilayer Laminates** or 🍃 **Plastic Films** (Food grade)")
             else:
-                st.write("📦 Standard corrugated fiberboard")
+                st.markdown("📦 **Standard Corrugated Fiberboard**")
+
+            st.balloons()
         else:
             st.warning("⚠️ Please enter product details first!")
 
-# ---------------- TEACH MODEL TAB ----------------
-with tabs[1]:
-    st.header("📚 Teach the Model")
+# ---------------- TEACH MODEL ----------------
+elif page == "📚 Teach Model":
+    st.title("📚 Teach the AI Model")
 
-    c_name = st.text_input("Material / Category Name", key="teach_cname")
-    c_desc = st.text_area("Description", key="teach_cdesc")
-    c_notes = st.text_area("Notes (optional)", key="teach_notes")
+    st.markdown("💡 Here you can **teach** the advisor about new packaging materials, categories, or rules.")
 
-    if st.button("Save Category", key="save_category_btn"):
-        if c_name:
-            db["materials"][c_name] = {
-                "description": c_desc,
-                "notes": c_notes
-            }
-            save_db(db)
-            st.success(f"✅ Taught model about **{c_name}**")
-        else:
-            st.warning("⚠️ Please enter a category name!")
+    with st.expander("➕ Add New Material / Category"):
+        c_name = st.text_input("Material / Category Name", key="teach_cname")
+        c_desc = st.text_area("Description", key="teach_cdesc")
+        c_notes = st.text_area("Notes (optional)", key="teach_notes")
 
-    st.subheader("🧠 Teach Mind Map")
-    mm_level = st.selectbox(
-        "Packaging Level", ["Primary", "Secondary", "Tertiary"], key="teach_level"
-    )
-    mm_notes = st.text_area("Mind Map Notes", key="teach_mm_notes")
+        if st.button("💾 Save Category", key="save_category_btn"):
+            if c_name:
+                db["materials"][c_name] = {
+                    "description": c_desc,
+                    "notes": c_notes
+                }
+                save_db(db)
+                st.success(f"✅ Taught model about **{c_name}**")
+            else:
+                st.warning("⚠️ Please enter a category name!")
 
-    if st.button("Save Mind Map", key="save_mm_btn"):
-        if mm_level:
+    with st.expander("🧠 Update Mind Map"):
+        mm_level = st.selectbox("Packaging Level", ["Primary", "Secondary", "Tertiary"], key="teach_level")
+        mm_notes = st.text_area("Mind Map Notes", key="teach_mm_notes")
+
+        if st.button("💾 Save Mind Map", key="save_mm_btn"):
             db["mindmap"][mm_level] = mm_notes
             save_db(db)
-            st.success(f"✅ Saved mind map for {mm_level} packaging")
+            st.success(f"✅ Updated mind map for {mm_level} packaging")
 
-# ---------------- DATABASE VIEWER TAB ----------------
-with tabs[2]:
-    st.header("📂 Database Viewer")
+# ---------------- DATABASE VIEWER ----------------
+elif page == "📂 Database Viewer":
+    st.title("📂 Knowledge Database")
+
+    st.markdown("🔍 Below is the **entire JSON knowledge database** currently stored in your model.")
 
     st.json(db, expanded=True)
 
     st.download_button(
-        label="📥 Download Database (JSON)",
+        label="📥 Download Database (JSON Backup)",
         data=json.dumps(db, indent=4),
         file_name="packaging_db.json",
         mime="application/json",
