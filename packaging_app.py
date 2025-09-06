@@ -25,57 +25,53 @@ st.markdown("""
 <style>
 /* Background gradient */
 .stApp {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: #E0E0E0;
+    background: linear-gradient(135deg, #141E30, #243B55);
+    color: #f1f1f1;
     font-family: 'Segoe UI', sans-serif;
 }
 
 /* Titles */
 h1, h2, h3 {
-    color: #00ffe7;
-    text-shadow: 0px 0px 15px #00ffe7;
-}
-
-/* Cards */
-.block-container {
-    border-radius: 15px;
-    padding: 20px;
+    color: #00eaff;
+    text-shadow: 0px 0px 6px rgba(0, 234, 255, 0.6);
 }
 
 /* Input fields */
 .stTextInput>div>div>input,
 .stTextArea textarea {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid #00ffe7;
-    border-radius: 10px;
-    color: #fff;
+    background: #1f2933;
+    border: 1px solid #00eaff;
+    border-radius: 8px;
+    color: #f1f1f1;
 }
 
 .stTextInput>div>div>input:focus,
 .stTextArea textarea:focus {
     border: 1px solid #ff00ff;
-    box-shadow: 0px 0px 10px #ff00ff;
+    box-shadow: 0px 0px 8px #ff00ff;
+    outline: none;
 }
 
 /* Buttons */
 .stButton>button {
-    background: linear-gradient(90deg, #00ffe7, #ff00ff);
-    color: black;
+    background: linear-gradient(90deg, #00eaff, #ff00ff);
+    color: #000;  /* black text for contrast */
     font-weight: bold;
-    border-radius: 12px;
-    padding: 10px 20px;
+    border-radius: 8px;
+    padding: 8px 18px;
     border: none;
-    transition: 0.3s;
+    transition: 0.25s;
 }
 .stButton>button:hover {
     transform: scale(1.05);
-    box-shadow: 0px 0px 15px #ff00ff;
+    box-shadow: 0px 0px 12px #ff00ff;
 }
 
 /* Sidebar */
 [data-testid="stSidebar"] {
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(12px);
+    background: rgba(25, 25, 35, 0.95);
+    backdrop-filter: blur(10px);
+    color: #f1f1f1;
 }
 </style>
 """, unsafe_allow_html=True)
