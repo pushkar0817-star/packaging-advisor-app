@@ -53,13 +53,15 @@ st.markdown(
         font-weight: bold;
     }
 
-    /* Footer creator tag */
+    /* Footer creator tag in center */
     .creator {
         position: fixed;
         bottom: 8px;
-        right: 12px;
+        left: 50%;
+        transform: translateX(-50%);
         font-size: 12px;
         color: #666666;
+        text-align: center;
     }
     </style>
     """,
