@@ -1,48 +1,83 @@
 {
-  "categories": {
-    "Metals": {
-      "subcategories": ["Aluminum cans", "Steel drums", "Tinplate containers"]
+  "Food & Beverages": {
+    "Fruits": {
+      "apple": {
+        "Primary": "Plastic tray with shrink wrap 🍎",
+        "Secondary": "Corrugated fiberboard box with partitions 📦",
+        "Tertiary": "Palletized cartons with stretch wrap 🚚"
+      },
+      "banana": {
+        "Primary": "Bunch wrap in perforated film 🍌",
+        "Secondary": "Carton box with cushioning 📦",
+        "Tertiary": "Stacked cartons on wooden pallet 🚚"
+      }
     },
-    "Glass": {
-      "subcategories": ["Glass bottles", "Jars", "Ampoules"]
+    "Dairy": {
+      "milk": {
+        "Primary": "Multilayer laminate pouch 🥛",
+        "Secondary": "Plastic crate for pouches 📦",
+        "Tertiary": "Shrink-wrapped crates on pallet 🚚"
+      },
+      "butter": {
+        "Primary": "Foil laminate wrap 🧈",
+        "Secondary": "Carton box for butter slabs 📦",
+        "Tertiary": "Corrugated shipper cartons 🚚"
+      }
     },
-    "Paper": {
-      "subcategories": ["Corrugated boxes", "Paperboard cartons", "Kraft paper bags"]
-    },
-    "Polymers": {
-      "subcategories": ["PET bottles", "HDPE containers", "PP jars", "Flexible pouches"]
-    },
-    "Flutes": {
-      "types": ["A-Flute", "B-Flute", "C-Flute", "E-Flute"]
+    "Beverages": {
+      "soft drink": {
+        "Primary": "PET bottle with cap 🥤",
+        "Secondary": "Shrink film 6-pack 📦",
+        "Tertiary": "Palletized shrink-wrapped trays 🚚"
+      },
+      "beer": {
+        "Primary": "Glass bottle with crown cap 🍺",
+        "Secondary": "Corrugated carton for 12 bottles 📦",
+        "Tertiary": "Shrink-wrapped cartons on pallet 🚚"
+      }
     }
   },
-  "packaging_levels": {
-    "Primary": {
-      "description": "Packaging that directly encloses the product to protect and contain it. It is in direct contact with the product.",
-      "examples": [
-        "Plastic bottle for soft drink",
-        "Blister pack for tablets",
-        "Tetra Pak for milk",
-        "Pouch for chips"
-      ]
+  "Electronics": {
+    "Mobiles": {
+      "smartphone": {
+        "Primary": "Rigid paperboard box with cushioning 📱",
+        "Secondary": "Corrugated carton with E-flute 📦",
+        "Tertiary": "Palletized cartons with straps 🚚"
+      }
     },
-    "Secondary": {
-      "description": "Packaging that groups primary packages together for handling, branding, and display. Provides additional protection.",
-      "examples": [
-        "Paperboard carton holding toothpaste tubes",
-        "Shrink wrap around water bottles",
-        "Box of medicine blister packs",
-        "Carton for juice tetra packs"
-      ]
-    },
-    "Tertiary": {
-      "description": "Packaging used for bulk handling, storage, and transportation. Ensures safe delivery of secondary packages.",
-      "examples": [
-        "Corrugated fiberboard box for shipping",
-        "Wooden pallet with stretch wrap",
-        "Large corrugated cartons containing smaller cartons",
-        "Crates used in exports"
-      ]
+    "Laptops": {
+      "laptop": {
+        "Primary": "Rigid corrugated box with foam inserts 💻",
+        "Secondary": "Carton with shock absorbers 📦",
+        "Tertiary": "Palletized and shrink-wrapped 🚚"
+      }
+    }
+  },
+  "Fragile Items": {
+    "Glassware": {
+      "glass bottle": {
+        "Primary": "Individual corrugated partition box 🍶",
+        "Secondary": "Outer corrugated carton 📦",
+        "Tertiary": "Stacked cartons with bubble wrap 🚚"
+      }
+    }
+  },
+  "Textiles": {
+    "Clothing": {
+      "t-shirt": {
+        "Primary": "Polybag 👕",
+        "Secondary": "Corrugated box 📦",
+        "Tertiary": "Palletized boxes 🚚"
+      }
+    }
+  },
+  "Industrial Goods": {
+    "Automotive": {
+      "spare part": {
+        "Primary": "Corrugated box with foam inserts 🔧",
+        "Secondary": "Heavy-duty corrugated shipper 📦",
+        "Tertiary": "Wooden crate/pallet 🚚"
+      }
     }
   }
 }
