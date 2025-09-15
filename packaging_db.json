@@ -1,51 +1,88 @@
 {
-  "categories": {
-    "Food": {
-      "subcategories": {
-        "Liquid": {
-          "examples": ["Milk", "Juice", "Oil"],
-          "properties": {
-            "state": "Liquid",
-            "sensitivity": ["Moisture", "Light"],
-            "shelf_life": "Medium",
-            "fragility": "Low"
-          },
-          "packaging": {
-            "primary": ["PET Bottle 🍼", "Tetra Pak 📦", "HDPE Bottle 🧴"],
-            "secondary": ["Shrink Wrap 🔗", "Paperboard Carton 📦"],
-            "tertiary": ["Corrugated Box 📦", "Pallet 🚛"]
-          }
-        },
-        "Solid": {
-          "examples": ["Biscuits", "Chocolates", "Snacks"],
-          "properties": {
-            "state": "Solid",
-            "shelf_life": "Medium",
-            "fragility": "Medium"
-          },
-          "packaging": {
-            "primary": ["Plastic Pouch 🛍️", "Foil Wrapper ✨"],
-            "secondary": ["Carton Box 📦"],
-            "tertiary": ["Corrugated Box 📦", "Shrink Wrapped Pallet 🚚"]
-          }
-        }
+  "products": {
+    "Milk": {
+      "basic_info": {
+        "category": "Food",
+        "subcategory": "Liquid",
+        "intended_market": "Retail"
+      },
+      "properties": {
+        "state": "Liquid",
+        "weight_volume": "500 mL",
+        "shape_form": "Liquid in free form",
+        "shelf_life": "Short-term",
+        "fragility": "Low",
+        "moisture_sensitivity": "Yes",
+        "light_sensitivity": "Yes",
+        "temperature_sensitivity": "Needs cold chain",
+        "odor_flavor_sensitivity": "Yes",
+        "chemical_reactivity": "Neutral"
+      },
+      "handling": {
+        "mode_distribution": "Local retail",
+        "transport_conditions": "Refrigerated",
+        "handling_requirement": "Manual / Automated",
+        "dispensing_method": "Pouring"
+      },
+      "consumer": {
+        "target_consumer": "Mass market",
+        "branding_printing": "Full-color print",
+        "convenience_features": ["Lightweight", "Recyclable"],
+        "aesthetic": "Premium look"
+      },
+      "regulatory": {
+        "food_pharma_grade": "Yes",
+        "compliance": ["FSSAI", "ISO"],
+        "sustainability": ["Recyclable"]
+      },
+      "cost": "Mid-range",
+      "packaging": {
+        "primary": ["HDPE Bottle 🧴", "Tetra Pak 📦"],
+        "secondary": ["Shrink Wrap 🔗", "Paperboard Carton 📦"],
+        "tertiary": ["Corrugated Box 📦", "Pallet 🚛"]
       }
     },
-    "Pharma": {
-      "subcategories": {
-        "Tablets": {
-          "examples": ["Paracetamol", "Vitamin C"],
-          "properties": {
-            "state": "Solid",
-            "sensitivity": ["Moisture", "Light"],
-            "shelf_life": "Long"
-          },
-          "packaging": {
-            "primary": ["Blister Pack 💊", "HDPE Jar 🧴"],
-            "secondary": ["Paperboard Carton 📦"],
-            "tertiary": ["Corrugated Box 📦"]
-          }
-        }
+
+    "Tablet": {
+      "basic_info": {
+        "category": "Pharma",
+        "subcategory": "Solid",
+        "intended_market": "Retail"
+      },
+      "properties": {
+        "state": "Solid",
+        "weight_volume": "1 g per tablet",
+        "shape_form": "Round",
+        "shelf_life": "Long-term",
+        "fragility": "Low",
+        "moisture_sensitivity": "Yes",
+        "light_sensitivity": "Yes",
+        "temperature_sensitivity": "No",
+        "odor_flavor_sensitivity": "No",
+        "chemical_reactivity": "Neutral"
+      },
+      "handling": {
+        "mode_distribution": "Retail & Export",
+        "transport_conditions": "Ambient",
+        "handling_requirement": "Tamper-proof",
+        "dispensing_method": "Multiple dose"
+      },
+      "consumer": {
+        "target_consumer": "Medical professionals",
+        "branding_printing": "Minimalist",
+        "convenience_features": ["Portion packs", "Recyclable"],
+        "aesthetic": "Matte finish"
+      },
+      "regulatory": {
+        "food_pharma_grade": "Yes",
+        "compliance": ["FDA", "ISO"],
+        "sustainability": ["Minimal plastic use"]
+      },
+      "cost": "Premium",
+      "packaging": {
+        "primary": ["Blister Pack 💊", "HDPE Jar 🧴"],
+        "secondary": ["Paperboard Carton 📦"],
+        "tertiary": ["Corrugated Box 📦"]
       }
     }
   }
