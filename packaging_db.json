@@ -1,82 +1,51 @@
 {
-  "Food & Beverages": {
-    "Fruits": {
-      "apple": {
-        "Primary": "Plastic tray with shrink wrap 🍎",
-        "Secondary": "Corrugated fiberboard box with partitions 📦",
-        "Tertiary": "Palletized cartons with stretch wrap 🚚"
-      },
-      "banana": {
-        "Primary": "Bunch wrap in perforated film 🍌",
-        "Secondary": "Carton box with cushioning 📦",
-        "Tertiary": "Stacked cartons on wooden pallet 🚚"
+  "categories": {
+    "Food": {
+      "subcategories": {
+        "Liquid": {
+          "examples": ["Milk", "Juice", "Oil"],
+          "properties": {
+            "state": "Liquid",
+            "sensitivity": ["Moisture", "Light"],
+            "shelf_life": "Medium",
+            "fragility": "Low"
+          },
+          "packaging": {
+            "primary": ["PET Bottle 🍼", "Tetra Pak 📦", "HDPE Bottle 🧴"],
+            "secondary": ["Shrink Wrap 🔗", "Paperboard Carton 📦"],
+            "tertiary": ["Corrugated Box 📦", "Pallet 🚛"]
+          }
+        },
+        "Solid": {
+          "examples": ["Biscuits", "Chocolates", "Snacks"],
+          "properties": {
+            "state": "Solid",
+            "shelf_life": "Medium",
+            "fragility": "Medium"
+          },
+          "packaging": {
+            "primary": ["Plastic Pouch 🛍️", "Foil Wrapper ✨"],
+            "secondary": ["Carton Box 📦"],
+            "tertiary": ["Corrugated Box 📦", "Shrink Wrapped Pallet 🚚"]
+          }
+        }
       }
     },
-    "Dairy": {
-      "milk": {
-        "Primary": "Multilayer laminate pouch 🥛",
-        "Secondary": "Plastic crate for pouches 📦",
-        "Tertiary": "Shrink-wrapped crates on pallet 🚚"
-      },
-      "butter": {
-        "Primary": "Foil laminate wrap 🧈",
-        "Secondary": "Carton box for butter slabs 📦",
-        "Tertiary": "Corrugated shipper cartons 🚚"
-      }
-    },
-    "Beverages": {
-      "soft drink": {
-        "Primary": "PET bottle with cap 🥤",
-        "Secondary": "Shrink film 6-pack 📦",
-        "Tertiary": "Palletized shrink-wrapped trays 🚚"
-      },
-      "beer": {
-        "Primary": "Glass bottle with crown cap 🍺",
-        "Secondary": "Corrugated carton for 12 bottles 📦",
-        "Tertiary": "Shrink-wrapped cartons on pallet 🚚"
-      }
-    }
-  },
-  "Electronics": {
-    "Mobiles": {
-      "smartphone": {
-        "Primary": "Rigid paperboard box with cushioning 📱",
-        "Secondary": "Corrugated carton with E-flute 📦",
-        "Tertiary": "Palletized cartons with straps 🚚"
-      }
-    },
-    "Laptops": {
-      "laptop": {
-        "Primary": "Rigid corrugated box with foam inserts 💻",
-        "Secondary": "Carton with shock absorbers 📦",
-        "Tertiary": "Palletized and shrink-wrapped 🚚"
-      }
-    }
-  },
-  "Fragile Items": {
-    "Glassware": {
-      "glass bottle": {
-        "Primary": "Individual corrugated partition box 🍶",
-        "Secondary": "Outer corrugated carton 📦",
-        "Tertiary": "Stacked cartons with bubble wrap 🚚"
-      }
-    }
-  },
-  "Textiles": {
-    "Clothing": {
-      "t-shirt": {
-        "Primary": "Polybag 👕",
-        "Secondary": "Corrugated box 📦",
-        "Tertiary": "Palletized boxes 🚚"
-      }
-    }
-  },
-  "Industrial Goods": {
-    "Automotive": {
-      "spare part": {
-        "Primary": "Corrugated box with foam inserts 🔧",
-        "Secondary": "Heavy-duty corrugated shipper 📦",
-        "Tertiary": "Wooden crate/pallet 🚚"
+    "Pharma": {
+      "subcategories": {
+        "Tablets": {
+          "examples": ["Paracetamol", "Vitamin C"],
+          "properties": {
+            "state": "Solid",
+            "sensitivity": ["Moisture", "Light"],
+            "shelf_life": "Long"
+          },
+          "packaging": {
+            "primary": ["Blister Pack 💊", "HDPE Jar 🧴"],
+            "secondary": ["Paperboard Carton 📦"],
+            "tertiary": ["Corrugated Box 📦"]
+          }
+        }
       }
     }
   }
