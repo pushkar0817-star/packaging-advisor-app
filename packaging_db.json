@@ -8,38 +8,38 @@
       },
       "properties": {
         "state": "Liquid",
-        "weight_volume": "500 mL",
-        "shape_form": "Liquid in free form",
+        "weight_volume": "500 mL, 1 L",
+        "shape_form": "Fluid",
         "shelf_life": "Short-term",
         "fragility": "Low",
-        "moisture_sensitivity": "Yes",
+        "moisture_sensitivity": "No",
         "light_sensitivity": "Yes",
-        "temperature_sensitivity": "Needs cold chain",
+        "temperature_sensitivity": "Yes (Refrigerated)",
         "odor_flavor_sensitivity": "Yes",
         "chemical_reactivity": "Neutral"
       },
       "handling": {
-        "mode_distribution": "Local retail",
+        "mode_distribution": "Local retail, E-commerce",
         "transport_conditions": "Refrigerated",
-        "handling_requirement": "Manual / Automated",
+        "handling_requirement": "Manual, Tamper-proof",
         "dispensing_method": "Pouring"
       },
       "consumer": {
         "target_consumer": "Mass market",
         "branding_printing": "Full-color print",
-        "convenience_features": ["Lightweight", "Recyclable"],
-        "aesthetic": "Premium look"
+        "convenience_features": ["Easy-open", "Resealable"],
+        "aesthetic_appeal": "Matte or Glossy"
       },
       "regulatory": {
         "food_pharma_grade": "Yes",
         "compliance": ["FSSAI", "ISO"],
-        "sustainability": ["Recyclable"]
+        "sustainability": ["Recyclable", "Biodegradable"],
+        "cost_constraint": "Low-cost economy"
       },
-      "cost": "Mid-range",
       "packaging": {
-        "primary": ["HDPE Bottle 🧴", "Tetra Pak 📦"],
-        "secondary": ["Shrink Wrap 🔗", "Paperboard Carton 📦"],
-        "tertiary": ["Corrugated Box 📦", "Pallet 🚛"]
+        "primary": ["HDPE Bottle", "Multi-layer Pouch", "Carton (Tetra Pak)"],
+        "secondary": ["Shrink Wrap", "Carton Sleeve"],
+        "tertiary": ["Corrugated Box", "Crate"]
       }
     },
 
@@ -47,14 +47,14 @@
       "basic_info": {
         "category": "Pharma",
         "subcategory": "Solid",
-        "intended_market": "Retail"
+        "intended_market": "Retail, Export"
       },
       "properties": {
         "state": "Solid",
-        "weight_volume": "1 g per tablet",
-        "shape_form": "Round",
+        "weight_volume": "1 tablet, 10 tablets/strip",
+        "shape_form": "Round/Oblong",
         "shelf_life": "Long-term",
-        "fragility": "Low",
+        "fragility": "Medium",
         "moisture_sensitivity": "Yes",
         "light_sensitivity": "Yes",
         "temperature_sensitivity": "No",
@@ -62,27 +62,70 @@
         "chemical_reactivity": "Neutral"
       },
       "handling": {
-        "mode_distribution": "Retail & Export",
+        "mode_distribution": "Retail pharmacy, Export",
         "transport_conditions": "Ambient",
-        "handling_requirement": "Tamper-proof",
-        "dispensing_method": "Multiple dose"
+        "handling_requirement": "Tamper-proof, Blister-sealed",
+        "dispensing_method": "Per dose (blister push-out)"
       },
       "consumer": {
-        "target_consumer": "Medical professionals",
-        "branding_printing": "Minimalist",
-        "convenience_features": ["Portion packs", "Recyclable"],
-        "aesthetic": "Matte finish"
+        "target_consumer": "Medical professionals, Patients",
+        "branding_printing": "Minimalist, Compliance-focused",
+        "convenience_features": ["Unit-dose packs"],
+        "aesthetic_appeal": "Clean, Professional"
       },
       "regulatory": {
         "food_pharma_grade": "Yes",
-        "compliance": ["FDA", "ISO"],
-        "sustainability": ["Minimal plastic use"]
+        "compliance": ["FDA", "EU GMP", "ISO"],
+        "sustainability": ["Recyclable"],
+        "cost_constraint": "Mid-range"
       },
-      "cost": "Premium",
       "packaging": {
-        "primary": ["Blister Pack 💊", "HDPE Jar 🧴"],
-        "secondary": ["Paperboard Carton 📦"],
-        "tertiary": ["Corrugated Box 📦"]
+        "primary": ["Alu-Alu Blister", "PVC Blister"],
+        "secondary": ["Carton"],
+        "tertiary": ["Corrugated Box"]
+      }
+    },
+
+    "Shampoo": {
+      "basic_info": {
+        "category": "Cosmetics",
+        "subcategory": "Liquid",
+        "intended_market": "Retail"
+      },
+      "properties": {
+        "state": "Liquid",
+        "weight_volume": "100 mL, 200 mL, 500 mL",
+        "shape_form": "Viscous Liquid",
+        "shelf_life": "Medium-term",
+        "fragility": "Low",
+        "moisture_sensitivity": "No",
+        "light_sensitivity": "No",
+        "temperature_sensitivity": "No",
+        "odor_flavor_sensitivity": "Yes (fragrance retention)",
+        "chemical_reactivity": "Mild (surfactants)"
+      },
+      "handling": {
+        "mode_distribution": "Retail, E-commerce",
+        "transport_conditions": "Ambient",
+        "handling_requirement": "Leak-proof, Tamper-evident",
+        "dispensing_method": "Squeezing, Pump"
+      },
+      "consumer": {
+        "target_consumer": "Mass market, Premium users",
+        "branding_printing": "Full-color glossy",
+        "convenience_features": ["Resealable Cap", "Easy Squeeze"],
+        "aesthetic_appeal": "Premium Glossy"
+      },
+      "regulatory": {
+        "food_pharma_grade": "No",
+        "compliance": ["BIS", "ISO"],
+        "sustainability": ["Recyclable"],
+        "cost_constraint": "Mid-range to Premium"
+      },
+      "packaging": {
+        "primary": ["HDPE Bottle", "PET Bottle", "Sachet (MLP)"],
+        "secondary": ["Shrink Wrap", "Carton"],
+        "tertiary": ["Corrugated Box"]
       }
     }
   }
