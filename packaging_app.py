@@ -1,113 +1,53 @@
+import json
 import streamlit as st
 
-# ============ CLEAN THEME CSS ============
-st.markdown(
-    """
-    <style>
-    /* General background */
-    .stApp {
-        background-color: #f9f9f9;
-        color: #333333;
-        font-family: 'Segoe UI', sans-serif;
-    }
+# Load knowledge database
+def load_db():
+    try:
+        with open("packaging_db.json", "r") as f:
+            return json.load(f)
+    except:
+        return {}
 
-    /* Sidebar */
-    [data-testid="stSidebar"] {
-        background-color: #ffffff;
-        border-right: 1px solid #e0e0e0;
-    }
+db = load_db()
 
-    [data-testid="stSidebar"] h2 {
-        color: #2c3e50 !important;
-    }
+# Main UI
+st.title("🛒 Product Advisor")
 
-    /* Input fields */
-    .stTextInput > div > div > input, 
-    .stTextArea > div > textarea, 
-    .stSelectbox > div > div {
-        background: #ffffff;
-        border: 1px solid #cccccc;
-        color: #333333 !important;
-        border-radius: 5px;
-    }
+col1, col2 = st.columns(2)
+with col1:
+    product_name = st.text_input("✏️ Product Name").lower()
+with col2:
+    packaging_type = st.selectbox("📦 Packaging Type", ["Primary", "Secondary", "Tertiary"])
 
-    /* Button */
-    div.stButton > button {
-        background-color: #2c3e50;
-        color: white;
-        border-radius: 6px;
-        border: none;
-        font-weight: 500;
-        font-size: 15px;
-        padding: 8px 18px;
-        transition: all 0.2s ease-in-out;
-    }
-    div.stButton > button:hover {
-        background-color: #1a252f;
-        transform: scale(1.02);
-    }
+product_desc = st.text_area("📝 Product Description")
 
-    /* Title */
-    h1, h2, h3 {
-        color: #2c3e50 !important;
-        font-weight: bold;
-    }
+if st.button("🚀 Suggest Packaging"):
+    suggestion = None
 
-    /* Footer creator tag in center */
-    .creator {
-        position: fixed;
-        bottom: 8px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 12px;
-        color: #666666;
-        text-align: center;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+    # 1. Try exact match from DB
+    if product_name in db:
+        if packaging_type in db[product_name]:
+            suggestion = db[product_name][packaging_type]
 
-# ============ SIDEBAR ============
-st.sidebar.title("⚡ Navigation")
-st.sidebar.write("Choose a section:")
-section = st.sidebar.radio(
-    "",
-    ["🛒 Product Advisor", "🤖 Teach Model", "📂 Database Viewer"]
-)
+    # 2. If not taught, fallback rules
+    if not suggestion:
+        if "fruit" in product_desc or "apple" in product_name:
+            if packaging_type == "Primary":
+                suggestion = "Plastic tray with shrink wrap 🍎"
+            elif packaging_type == "Secondary":
+                suggestion = "Corrugated box with partitions 📦"
+            else:
+                suggestion = "Palletized corrugated cartons with stretch film 🚚"
+        elif "bottle" in product_desc or "liquid" in product_desc:
+            if packaging_type == "Primary":
+                suggestion = "Glass/Plastic bottle with cap 🍼"
+            elif packaging_type == "Secondary":
+                suggestion = "Carton for 6/12 bottles 📦"
+            else:
+                suggestion = "Pallet wrap with shrink film 🚚"
+        else:
+            suggestion = f"No trained data. Please teach me for {packaging_type} packaging 🤖"
 
-# ============ MAIN TITLE ============
-st.markdown("<h1>🛒 Product Advisor</h1>", unsafe_allow_html=True)
-
-# ============ PRODUCT ADVISOR FORM ============
-if section == "🛒 Product Advisor":
-    col1, col2 = st.columns(2)
-
-    with col1:
-        product_name = st.text_input("✏️ Product Name")
-    with col2:
-        packaging_type = st.selectbox("📦 Packaging Type", ["Primary", "Secondary", "Tertiary"])
-
-    product_desc = st.text_area("📝 Product Description")
-
-    if st.button("🚀 Suggest Packaging"):
-        st.success(f"Suggested packaging for **{product_name}** in **{packaging_type} packaging** ✅")
-
-# Teach Model Section
-elif section == "🤖 Teach Model":
-    st.subheader("🤖 Train the Model")
-    st.text_input("Provide Training Data")
-    st.text_area("Add Notes")
-    if st.button("📡 Train Model"):
-        st.info("Training started...")
-
-# Database Viewer Section
-elif section == "📂 Database Viewer":
-    st.subheader("📂 View Stored Data")
-    st.write("Database content will be displayed here.")
-
-# ============ CREATOR FOOTER ============
-st.markdown(
-    "<div class='creator'>👨‍💻 Created by Pushkar Singhania | IIP Delhi</div>",
-    unsafe_allow_html=True
-)
+    # Display suggestion
+    st.success(f"Suggested {packaging_type} packaging for **{product_name}** → {suggestion}")
