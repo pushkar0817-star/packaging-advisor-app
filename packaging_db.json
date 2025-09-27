@@ -16,23 +16,55 @@
       },
       "handling": {
         "mode_distribution": "Cold Chain",
-        "transport_conditions": "2-4°C, Refrigerated"
+        "transport_conditions": "2-4\u00b0C, Refrigerated"
       },
       "consumer": {
         "target_consumer": "General Population, Families",
         "branding_printing": "Full Color Flexographic, Nutritional Info"
       },
       "regulatory": {
-        "compliance": ["FDA 21 CFR 177", "EU 10/2011", "FSSAI", "ISO 22000"],
-        "sustainability": ["Recyclable HDPE", "Carbon Neutral Transport", "Renewable Energy Processing"]
+        "compliance": [
+          "FDA 21 CFR 177",
+          "EU 10/2011",
+          "FSSAI",
+          "ISO 22000"
+        ],
+        "sustainability": [
+          "Recyclable HDPE",
+          "Carbon Neutral Transport",
+          "Renewable Energy Processing"
+        ]
       },
       "packaging": {
-        "primary": ["HDPE Bottle with EVOH Barrier", "Tetra Pak Aseptic", "Glass Bottle"],
-        "secondary": ["PE Shrink Film", "Cardboard Carrier", "Crate System"],
-        "tertiary": ["Refrigerated Container", "Insulated Corrugated Box", "Plastic Crates"]
+        "primary": [
+          "HDPE Bottle with EVOH Barrier",
+          "Tetra Pak Aseptic",
+          "Glass Bottle"
+        ],
+        "secondary": [
+          "PE Shrink Film",
+          "Cardboard Carrier",
+          "Crate System"
+        ],
+        "tertiary": [
+          "Refrigerated Container",
+          "Insulated Corrugated Box",
+          "Plastic Crates"
+        ]
+      },
+      "recommendation_profile": {
+        "product_state": "Liquid",
+        "viscosity": "Low",
+        "ph_level": "Neutral",
+        "oxygen_sensitivity": "Medium",
+        "moisture_sensitivity": "Low",
+        "light_sensitivity": "High",
+        "storage_temperature": "Cold",
+        "shelf_life_requirement": "Weeks",
+        "budget_range": "Standard",
+        "sustainability_priority": "Balanced"
       }
     },
-    
     "Orange Juice": {
       "basic_info": {
         "category": "Food",
@@ -49,23 +81,55 @@
       },
       "handling": {
         "mode_distribution": "Ambient/Cold Chain",
-        "transport_conditions": "15-25°C or 2-4°C"
+        "transport_conditions": "15-25\u00b0C or 2-4\u00b0C"
       },
       "consumer": {
         "target_consumer": "Health Conscious, Children, Adults",
         "branding_printing": "Rotogravure, Vitamin Content Display"
       },
       "regulatory": {
-        "compliance": ["FDA GRAS", "FSSAI", "BRC", "SQF"],
-        "sustainability": ["FSC Certified Carton", "Plant-based Cap", "Recyclable Materials"]
+        "compliance": [
+          "FDA GRAS",
+          "FSSAI",
+          "BRC",
+          "SQF"
+        ],
+        "sustainability": [
+          "FSC Certified Carton",
+          "Plant-based Cap",
+          "Recyclable Materials"
+        ]
       },
       "packaging": {
-        "primary": ["Tetra Pak Brick Aseptic", "PET Bottle with UV Barrier", "Glass Bottle"],
-        "secondary": ["Shrink Wrap", "Tray Pack", "Multi-pack Carrier"],
-        "tertiary": ["Corrugated RSC Box", "Plastic Crates", "Pallet Wrap"]
+        "primary": [
+          "Tetra Pak Brick Aseptic",
+          "PET Bottle with UV Barrier",
+          "Glass Bottle"
+        ],
+        "secondary": [
+          "Shrink Wrap",
+          "Tray Pack",
+          "Multi-pack Carrier"
+        ],
+        "tertiary": [
+          "Corrugated RSC Box",
+          "Plastic Crates",
+          "Pallet Wrap"
+        ]
+      },
+      "recommendation_profile": {
+        "product_state": "Liquid",
+        "viscosity": "Low",
+        "ph_level": "Acidic",
+        "oxygen_sensitivity": "Medium",
+        "moisture_sensitivity": "Low",
+        "light_sensitivity": "High",
+        "storage_temperature": "Cold",
+        "shelf_life_requirement": "Months",
+        "budget_range": "Standard",
+        "sustainability_priority": "Eco-focused"
       }
     },
-
     "Chocolate Bar": {
       "basic_info": {
         "category": "Food",
@@ -82,23 +146,52 @@
       },
       "handling": {
         "mode_distribution": "Temperature Controlled",
-        "transport_conditions": "18-22°C, <60% RH"
+        "transport_conditions": "18-22\u00b0C, <60% RH"
       },
       "consumer": {
         "target_consumer": "All Age Groups",
         "branding_printing": "Offset Printing, Premium Finishes"
       },
       "regulatory": {
-        "compliance": ["FDA", "EU Novel Foods", "Cocoa Certification"],
-        "sustainability": ["Compostable Wrapper", "Fair Trade Sourcing", "Carbon Neutral"]
+        "compliance": [
+          "FDA",
+          "EU Novel Foods",
+          "Cocoa Certification"
+        ],
+        "sustainability": [
+          "Compostable Wrapper",
+          "Fair Trade Sourcing",
+          "Carbon Neutral"
+        ]
       },
       "packaging": {
-        "primary": ["Aluminum Foil + Paper Wrapper", "Metallized PET Film", "Compostable Film"],
-        "secondary": ["Folding Carton", "Display Box"],
-        "tertiary": ["Corrugated Box", "Temperature Controlled Container"]
+        "primary": [
+          "Aluminum Foil + Paper Wrapper",
+          "Metallized PET Film",
+          "Compostable Film"
+        ],
+        "secondary": [
+          "Folding Carton",
+          "Display Box"
+        ],
+        "tertiary": [
+          "Corrugated Box",
+          "Temperature Controlled Container"
+        ]
+      },
+      "recommendation_profile": {
+        "product_state": "Solid",
+        "viscosity": "N/A",
+        "ph_level": "Neutral",
+        "oxygen_sensitivity": "Medium",
+        "moisture_sensitivity": "High",
+        "light_sensitivity": "High",
+        "storage_temperature": "Cool",
+        "shelf_life_requirement": "Months",
+        "budget_range": "Premium",
+        "sustainability_priority": "Eco-focused"
       }
     },
-
     "Tablet": {
       "basic_info": {
         "category": "Pharma",
@@ -115,23 +208,54 @@
       },
       "handling": {
         "mode_distribution": "Controlled Environment",
-        "transport_conditions": "15-30°C, <65% RH"
+        "transport_conditions": "15-30\u00b0C, <65% RH"
       },
       "consumer": {
         "target_consumer": "Patients, Healthcare Providers",
         "branding_printing": "Pharmaceutical Grade, Braille, QR Code"
       },
       "regulatory": {
-        "compliance": ["USP <661>", "EU Directive 2001/83/EC", "ICH Q1A", "GDP Guidelines"],
-        "sustainability": ["Recyclable Aluminum", "Minimal Packaging", "Green Chemistry"]
+        "compliance": [
+          "USP <661>",
+          "EU Directive 2001/83/EC",
+          "ICH Q1A",
+          "GDP Guidelines"
+        ],
+        "sustainability": [
+          "Recyclable Aluminum",
+          "Minimal Packaging",
+          "Green Chemistry"
+        ]
       },
       "packaging": {
-        "primary": ["Alu-Alu Blister", "PVC-PVDC Blister", "HDPE Bottle with Desiccant"],
-        "secondary": ["Pharmaceutical Carton", "Patient Information Leaflet"],
-        "tertiary": ["Tamper Evident Box", "Serialized Container", "Cold Chain Box"]
+        "primary": [
+          "Alu-Alu Blister",
+          "PVC-PVDC Blister",
+          "HDPE Bottle with Desiccant"
+        ],
+        "secondary": [
+          "Pharmaceutical Carton",
+          "Patient Information Leaflet"
+        ],
+        "tertiary": [
+          "Tamper Evident Box",
+          "Serialized Container",
+          "Cold Chain Box"
+        ]
+      },
+      "recommendation_profile": {
+        "product_state": "Solid",
+        "viscosity": "N/A",
+        "ph_level": "Neutral",
+        "oxygen_sensitivity": "High",
+        "moisture_sensitivity": "High",
+        "light_sensitivity": "High",
+        "storage_temperature": "Ambient",
+        "shelf_life_requirement": "Years",
+        "budget_range": "Premium",
+        "sustainability_priority": "Balanced"
       }
     },
-
     "Injection Vial": {
       "basic_info": {
         "category": "Pharma",
@@ -148,23 +272,54 @@
       },
       "handling": {
         "mode_distribution": "Cold Chain",
-        "transport_conditions": "2-8°C, Validated"
+        "transport_conditions": "2-8\u00b0C, Validated"
       },
       "consumer": {
         "target_consumer": "Healthcare Professionals",
         "branding_printing": "Laser Etching, Serialization"
       },
       "regulatory": {
-        "compliance": ["USP <1>", "EU GMP Annex 1", "FDA 21 CFR 211", "WHO TRS"],
-        "sustainability": ["Glass Recycling Program", "Reduced Packaging", "Green Manufacturing"]
+        "compliance": [
+          "USP <1>",
+          "EU GMP Annex 1",
+          "FDA 21 CFR 211",
+          "WHO TRS"
+        ],
+        "sustainability": [
+          "Glass Recycling Program",
+          "Reduced Packaging",
+          "Green Manufacturing"
+        ]
       },
       "packaging": {
-        "primary": ["Type I Borosilicate Vial", "Bromobutyl Stopper", "Aluminum Crimp Seal"],
-        "secondary": ["Tray with Dividers", "Sterile Pouch"],
-        "tertiary": ["Validated Cold Box", "Temperature Logger", "Insulated Shipper"]
+        "primary": [
+          "Type I Borosilicate Vial",
+          "Bromobutyl Stopper",
+          "Aluminum Crimp Seal"
+        ],
+        "secondary": [
+          "Tray with Dividers",
+          "Sterile Pouch"
+        ],
+        "tertiary": [
+          "Validated Cold Box",
+          "Temperature Logger",
+          "Insulated Shipper"
+        ]
+      },
+      "recommendation_profile": {
+        "product_state": "Liquid",
+        "viscosity": "Low",
+        "ph_level": "Neutral",
+        "oxygen_sensitivity": "High",
+        "moisture_sensitivity": "High",
+        "light_sensitivity": "High",
+        "storage_temperature": "Cold",
+        "shelf_life_requirement": "Months",
+        "budget_range": "Premium",
+        "sustainability_priority": "Balanced"
       }
     },
-
     "Shampoo": {
       "basic_info": {
         "category": "Cosmetics",
@@ -181,23 +336,52 @@
       },
       "handling": {
         "mode_distribution": "Ambient",
-        "transport_conditions": "5-40°C"
+        "transport_conditions": "5-40\u00b0C"
       },
       "consumer": {
         "target_consumer": "All Demographics",
         "branding_printing": "IML, Silk Screen, Digital"
       },
       "regulatory": {
-        "compliance": ["FDA 21 CFR 701", "EU Cosmetics Regulation", "ISO 22716"],
-        "sustainability": ["PCR HDPE", "Refillable System", "Waterless Formula"]
+        "compliance": [
+          "FDA 21 CFR 701",
+          "EU Cosmetics Regulation",
+          "ISO 22716"
+        ],
+        "sustainability": [
+          "PCR HDPE",
+          "Refillable System",
+          "Waterless Formula"
+        ]
       },
       "packaging": {
-        "primary": ["HDPE Bottle", "PCR PET Bottle", "Aluminum Bottle"],
-        "secondary": ["Shrink Sleeve", "Pressure Sensitive Label"],
-        "tertiary": ["Corrugated Box", "Bulk Container"]
+        "primary": [
+          "HDPE Bottle",
+          "PCR PET Bottle",
+          "Aluminum Bottle"
+        ],
+        "secondary": [
+          "Shrink Sleeve",
+          "Pressure Sensitive Label"
+        ],
+        "tertiary": [
+          "Corrugated Box",
+          "Bulk Container"
+        ]
+      },
+      "recommendation_profile": {
+        "product_state": "Liquid",
+        "viscosity": "High",
+        "ph_level": "Neutral",
+        "oxygen_sensitivity": "Low",
+        "moisture_sensitivity": "Low",
+        "light_sensitivity": "Low",
+        "storage_temperature": "Ambient",
+        "shelf_life_requirement": "Years",
+        "budget_range": "Standard",
+        "sustainability_priority": "Eco-focused"
       }
     },
-
     "Lipstick": {
       "basic_info": {
         "category": "Cosmetics",
@@ -214,23 +398,52 @@
       },
       "handling": {
         "mode_distribution": "Ambient",
-        "transport_conditions": "15-25°C"
+        "transport_conditions": "15-25\u00b0C"
       },
       "consumer": {
         "target_consumer": "Women 16-65",
         "branding_printing": "Hot Stamping, Embossing, UV Coating"
       },
       "regulatory": {
-        "compliance": ["FDA Color Additives", "EU Cosmetics Directive", "CPNP Notification"],
-        "sustainability": ["Refillable Case", "Biodegradable Components", "Minimal Packaging"]
+        "compliance": [
+          "FDA Color Additives",
+          "EU Cosmetics Directive",
+          "CPNP Notification"
+        ],
+        "sustainability": [
+          "Refillable Case",
+          "Biodegradable Components",
+          "Minimal Packaging"
+        ]
       },
       "packaging": {
-        "primary": ["ABS Plastic Case", "Metal Mechanism", "PC Bullet"],
-        "secondary": ["Luxury Carton", "Velvet Pouch"],
-        "tertiary": ["Display Unit", "Master Carton"]
+        "primary": [
+          "ABS Plastic Case",
+          "Metal Mechanism",
+          "PC Bullet"
+        ],
+        "secondary": [
+          "Luxury Carton",
+          "Velvet Pouch"
+        ],
+        "tertiary": [
+          "Display Unit",
+          "Master Carton"
+        ]
+      },
+      "recommendation_profile": {
+        "product_state": "Semi-solid",
+        "viscosity": "Medium",
+        "ph_level": "Neutral",
+        "oxygen_sensitivity": "Low",
+        "moisture_sensitivity": "Low",
+        "light_sensitivity": "Low",
+        "storage_temperature": "Ambient",
+        "shelf_life_requirement": "Years",
+        "budget_range": "Premium",
+        "sustainability_priority": "Balanced"
       }
     },
-
     "Smartphone": {
       "basic_info": {
         "category": "Electronics",
@@ -247,23 +460,53 @@
       },
       "handling": {
         "mode_distribution": "Controlled Environment",
-        "transport_conditions": "10-35°C, <85% RH"
+        "transport_conditions": "10-35\u00b0C, <85% RH"
       },
       "consumer": {
         "target_consumer": "Tech Consumers 13-65",
         "branding_printing": "Premium Finishes, Holographic"
       },
       "regulatory": {
-        "compliance": ["FCC", "CE Marking", "RoHS", "WEEE"],
-        "sustainability": ["Recyclable Materials", "Minimal Plastic", "E-waste Program"]
+        "compliance": [
+          "FCC",
+          "CE Marking",
+          "RoHS",
+          "WEEE"
+        ],
+        "sustainability": [
+          "Recyclable Materials",
+          "Minimal Plastic",
+          "E-waste Program"
+        ]
       },
       "packaging": {
-        "primary": ["Thermoformed Tray", "Anti-static Bag", "Foam Insert"],
-        "secondary": ["Premium Rigid Box", "Accessories Kit"],
-        "tertiary": ["Master Carton", "Palletized Shipping"]
+        "primary": [
+          "Thermoformed Tray",
+          "Anti-static Bag",
+          "Foam Insert"
+        ],
+        "secondary": [
+          "Premium Rigid Box",
+          "Accessories Kit"
+        ],
+        "tertiary": [
+          "Master Carton",
+          "Palletized Shipping"
+        ]
+      },
+      "recommendation_profile": {
+        "product_state": "Solid",
+        "viscosity": "N/A",
+        "ph_level": "Neutral",
+        "oxygen_sensitivity": "Low",
+        "moisture_sensitivity": "High",
+        "light_sensitivity": "Low",
+        "storage_temperature": "Ambient",
+        "shelf_life_requirement": "Years",
+        "budget_range": "Premium",
+        "sustainability_priority": "Balanced"
       }
     },
-
     "Industrial Adhesive": {
       "basic_info": {
         "category": "Industrial",
@@ -287,16 +530,46 @@
         "branding_printing": "Chemical Resistant Labels, GHS Symbols"
       },
       "regulatory": {
-        "compliance": ["REACH", "GHS", "OSHA HCS", "UN Packaging Standards"],
-        "sustainability": ["Solvent-free Formula", "Recyclable Container", "Reduced VOCs"]
+        "compliance": [
+          "REACH",
+          "GHS",
+          "OSHA HCS",
+          "UN Packaging Standards"
+        ],
+        "sustainability": [
+          "Solvent-free Formula",
+          "Recyclable Container",
+          "Reduced VOCs"
+        ]
       },
       "packaging": {
-        "primary": ["UN Approved HDPE Container", "Metal Pail", "IBC Tote"],
-        "secondary": ["Absorbent Material", "Overpacking"],
-        "tertiary": ["UN Certified Box", "Hazmat Shipping"]
+        "primary": [
+          "UN Approved HDPE Container",
+          "Metal Pail",
+          "IBC Tote"
+        ],
+        "secondary": [
+          "Absorbent Material",
+          "Overpacking"
+        ],
+        "tertiary": [
+          "UN Certified Box",
+          "Hazmat Shipping"
+        ]
+      },
+      "recommendation_profile": {
+        "product_state": "Liquid",
+        "viscosity": "High",
+        "ph_level": "Basic",
+        "oxygen_sensitivity": "Medium",
+        "moisture_sensitivity": "High",
+        "light_sensitivity": "Medium",
+        "storage_temperature": "Ambient",
+        "shelf_life_requirement": "Months",
+        "budget_range": "Standard",
+        "sustainability_priority": "Balanced"
       }
     },
-
     "Laundry Detergent": {
       "basic_info": {
         "category": "Home Care",
@@ -313,23 +586,52 @@
       },
       "handling": {
         "mode_distribution": "Ambient",
-        "transport_conditions": "5-40°C"
+        "transport_conditions": "5-40\u00b0C"
       },
       "consumer": {
         "target_consumer": "Households",
         "branding_printing": "Flexographic, Dosage Instructions"
       },
       "regulatory": {
-        "compliance": ["EPA DfE", "EU Detergents Regulation", "Biodegradability"],
-        "sustainability": ["Concentrated Formula", "PCR Plastic", "Phosphate Free"]
+        "compliance": [
+          "EPA DfE",
+          "EU Detergents Regulation",
+          "Biodegradability"
+        ],
+        "sustainability": [
+          "Concentrated Formula",
+          "PCR Plastic",
+          "Phosphate Free"
+        ]
       },
       "packaging": {
-        "primary": ["HDPE Bottle with Handle", "Flexible Pouch", "Cardboard Carton"],
-        "secondary": ["Shrink Wrap", "Multi-pack"],
-        "tertiary": ["Corrugated Box", "Pallet Wrap"]
+        "primary": [
+          "HDPE Bottle with Handle",
+          "Flexible Pouch",
+          "Cardboard Carton"
+        ],
+        "secondary": [
+          "Shrink Wrap",
+          "Multi-pack"
+        ],
+        "tertiary": [
+          "Corrugated Box",
+          "Pallet Wrap"
+        ]
+      },
+      "recommendation_profile": {
+        "product_state": "Liquid",
+        "viscosity": "Medium",
+        "ph_level": "Basic",
+        "oxygen_sensitivity": "Low",
+        "moisture_sensitivity": "Low",
+        "light_sensitivity": "Low",
+        "storage_temperature": "Ambient",
+        "shelf_life_requirement": "Years",
+        "budget_range": "Economy",
+        "sustainability_priority": "Eco-focused"
       }
     },
-
     "Baby Formula": {
       "basic_info": {
         "category": "Food",
@@ -346,23 +648,52 @@
       },
       "handling": {
         "mode_distribution": "Controlled Environment",
-        "transport_conditions": "15-25°C, <60% RH"
+        "transport_conditions": "15-25\u00b0C, <60% RH"
       },
       "consumer": {
         "target_consumer": "Parents, Infants 0-12 months",
         "branding_printing": "Nutritional Facts, Safety Instructions"
       },
       "regulatory": {
-        "compliance": ["FDA Infant Formula Act", "EU Commission Directive", "Codex Alimentarius"],
-        "sustainability": ["Recyclable Can", "Sustainable Sourcing", "Carbon Footprint Reduction"]
+        "compliance": [
+          "FDA Infant Formula Act",
+          "EU Commission Directive",
+          "Codex Alimentarius"
+        ],
+        "sustainability": [
+          "Recyclable Can",
+          "Sustainable Sourcing",
+          "Carbon Footprint Reduction"
+        ]
       },
       "packaging": {
-        "primary": ["Tinplate Can with Easy-open End", "Nitrogen Flushed", "Desiccant"],
-        "secondary": ["Shrink Sleeve", "Information Booklet"],
-        "tertiary": ["Case Pack", "Shrink Wrapped Tray"]
+        "primary": [
+          "Tinplate Can with Easy-open End",
+          "Nitrogen Flushed",
+          "Desiccant"
+        ],
+        "secondary": [
+          "Shrink Sleeve",
+          "Information Booklet"
+        ],
+        "tertiary": [
+          "Case Pack",
+          "Shrink Wrapped Tray"
+        ]
+      },
+      "recommendation_profile": {
+        "product_state": "Powder",
+        "viscosity": "N/A",
+        "ph_level": "Neutral",
+        "oxygen_sensitivity": "High",
+        "moisture_sensitivity": "High",
+        "light_sensitivity": "Medium",
+        "storage_temperature": "Ambient",
+        "shelf_life_requirement": "Years",
+        "budget_range": "Premium",
+        "sustainability_priority": "Balanced"
       }
     },
-
     "Dog Food": {
       "basic_info": {
         "category": "Pet Care",
@@ -386,13 +717,987 @@
         "branding_printing": "High-quality Graphics, Feeding Guide"
       },
       "regulatory": {
-        "compliance": ["AAFCO", "FDA CVM", "FEDIAF"],
-        "sustainability": ["Recyclable Bag", "Sustainable Protein", "Minimal Waste"]
+        "compliance": [
+          "AAFCO",
+          "FDA CVM",
+          "FEDIAF"
+        ],
+        "sustainability": [
+          "Recyclable Bag",
+          "Sustainable Protein",
+          "Minimal Waste"
+        ]
       },
       "packaging": {
-        "primary": ["Multi-layer Barrier Bag", "Resealable Zipper", "Valve Bag"],
-        "secondary": ["Handle Integration"],
-        "tertiary": ["Corrugated Case", "Pallet Configuration"]
+        "primary": [
+          "Multi-layer Barrier Bag",
+          "Resealable Zipper",
+          "Valve Bag"
+        ],
+        "secondary": [
+          "Handle Integration"
+        ],
+        "tertiary": [
+          "Corrugated Case",
+          "Pallet Configuration"
+        ]
+      },
+      "recommendation_profile": {
+        "product_state": "Solid",
+        "viscosity": "N/A",
+        "ph_level": "Neutral",
+        "oxygen_sensitivity": "Medium",
+        "moisture_sensitivity": "High",
+        "light_sensitivity": "Low",
+        "storage_temperature": "Ambient",
+        "shelf_life_requirement": "Years",
+        "budget_range": "Standard",
+        "sustainability_priority": "Balanced"
+      }
+    }
+  },
+  "packaging_materials": {
+    "HDPE_Bottle": {
+      "material_type": "Plastic Bottle",
+      "technical_specs": {
+        "density": "0.93-0.97 g/cm\u00b3",
+        "melting_point": "120-130\u00b0C",
+        "chemical_resistance": "Excellent",
+        "impact_strength": "High",
+        "clarity": "Translucent to Opaque"
+      },
+      "characteristics": {
+        "product_state_compatibility": [
+          "Liquid",
+          "Paste",
+          "Cream"
+        ],
+        "viscosity_range": [
+          "Low",
+          "Medium",
+          "High"
+        ],
+        "ph_tolerance": [
+          "Acidic",
+          "Neutral",
+          "Basic"
+        ],
+        "temperature_range": [
+          "Cold",
+          "Ambient"
+        ],
+        "oxygen_barrier": "Low",
+        "moisture_barrier": "High",
+        "light_barrier": "Medium",
+        "chemical_resistance": "High",
+        "cost_category": "Economy",
+        "typical_volumes": [
+          "50ml",
+          "100ml",
+          "250ml",
+          "500ml",
+          "1L",
+          "5L"
+        ]
+      },
+      "applications": [
+        "Milk",
+        "Shampoo",
+        "Detergent",
+        "Chemicals"
+      ],
+      "sustainability": {
+        "recyclable": true,
+        "pcr_available": true,
+        "biodegradable": false,
+        "carbon_footprint": "Medium"
+      },
+      "pros": [
+        "Cost effective",
+        "Chemical resistant",
+        "Lightweight",
+        "Recyclable"
+      ],
+      "cons": [
+        "Poor oxygen barrier",
+        "Limited clarity",
+        "Temperature sensitive"
+      ]
+    },
+    "PET_Bottle": {
+      "material_type": "Plastic Bottle",
+      "technical_specs": {
+        "density": "1.38-1.41 g/cm\u00b3",
+        "melting_point": "245-265\u00b0C",
+        "chemical_resistance": "Good",
+        "impact_strength": "Medium",
+        "clarity": "Excellent"
+      },
+      "characteristics": {
+        "product_state_compatibility": [
+          "Liquid"
+        ],
+        "viscosity_range": [
+          "Low",
+          "Medium"
+        ],
+        "ph_tolerance": [
+          "Acidic",
+          "Neutral"
+        ],
+        "temperature_range": [
+          "Cold",
+          "Ambient",
+          "Hot"
+        ],
+        "oxygen_barrier": "Medium",
+        "moisture_barrier": "Medium",
+        "light_barrier": "Low",
+        "chemical_resistance": "Medium",
+        "cost_category": "Economy",
+        "typical_volumes": [
+          "200ml",
+          "500ml",
+          "1L",
+          "2L"
+        ]
+      },
+      "applications": [
+        "Juice",
+        "Water",
+        "Soft Drinks",
+        "Oils"
+      ],
+      "sustainability": {
+        "recyclable": true,
+        "pcr_available": true,
+        "biodegradable": false,
+        "carbon_footprint": "Medium"
+      },
+      "pros": [
+        "Crystal clear",
+        "Lightweight",
+        "Good barrier",
+        "FDA approved"
+      ],
+      "cons": [
+        "Limited chemical resistance",
+        "Not suitable for basic products"
+      ]
+    },
+    "Glass_Bottle": {
+      "material_type": "Glass Container",
+      "technical_specs": {
+        "density": "2.4-2.8 g/cm\u00b3",
+        "melting_point": "1400-1600\u00b0C",
+        "chemical_resistance": "Excellent",
+        "impact_strength": "Low",
+        "clarity": "Excellent"
+      },
+      "characteristics": {
+        "product_state_compatibility": [
+          "Liquid",
+          "Solid",
+          "Semi-solid"
+        ],
+        "viscosity_range": [
+          "Low",
+          "Medium",
+          "High"
+        ],
+        "ph_tolerance": [
+          "Acidic",
+          "Neutral",
+          "Basic"
+        ],
+        "temperature_range": [
+          "Frozen",
+          "Cold",
+          "Ambient",
+          "Hot"
+        ],
+        "oxygen_barrier": "Excellent",
+        "moisture_barrier": "Excellent",
+        "light_barrier": "Excellent",
+        "chemical_resistance": "Excellent",
+        "cost_category": "Premium",
+        "typical_volumes": [
+          "50ml",
+          "100ml",
+          "250ml",
+          "500ml",
+          "750ml"
+        ]
+      },
+      "applications": [
+        "Premium Beverages",
+        "Pharmaceuticals",
+        "Cosmetics",
+        "Perfumes"
+      ],
+      "sustainability": {
+        "recyclable": true,
+        "pcr_available": false,
+        "biodegradable": false,
+        "carbon_footprint": "High"
+      },
+      "pros": [
+        "Inert material",
+        "Premium appearance",
+        "Complete barrier",
+        "Reusable"
+      ],
+      "cons": [
+        "Heavy weight",
+        "Fragile",
+        "High cost",
+        "Energy intensive"
+      ]
+    },
+    "Aluminum_Can": {
+      "material_type": "Metal Container",
+      "technical_specs": {
+        "density": "2.70 g/cm\u00b3",
+        "melting_point": "660\u00b0C",
+        "chemical_resistance": "Good",
+        "impact_strength": "Medium",
+        "clarity": "Opaque"
+      },
+      "characteristics": {
+        "product_state_compatibility": [
+          "Liquid",
+          "Powder"
+        ],
+        "viscosity_range": [
+          "Low",
+          "Medium"
+        ],
+        "ph_tolerance": [
+          "Acidic",
+          "Neutral",
+          "Basic"
+        ],
+        "temperature_range": [
+          "Frozen",
+          "Cold",
+          "Ambient",
+          "Hot"
+        ],
+        "oxygen_barrier": "Excellent",
+        "moisture_barrier": "Excellent",
+        "light_barrier": "Excellent",
+        "chemical_resistance": "Good",
+        "cost_category": "Standard",
+        "typical_volumes": [
+          "150ml",
+          "250ml",
+          "330ml",
+          "500ml",
+          "1L"
+        ]
+      },
+      "applications": [
+        "Beverages",
+        "Baby Formula",
+        "Powders",
+        "Aerosols"
+      ],
+      "sustainability": {
+        "recyclable": true,
+        "pcr_available": true,
+        "biodegradable": false,
+        "carbon_footprint": "Low"
+      },
+      "pros": [
+        "Complete barrier",
+        "Lightweight",
+        "Infinitely recyclable",
+        "Fast cooling"
+      ],
+      "cons": [
+        "Denting risk",
+        "Requires coating",
+        "Limited shapes"
+      ]
+    },
+    "Tetra_Pak": {
+      "material_type": "Composite Carton",
+      "technical_specs": {
+        "density": "1.3-1.4 g/cm\u00b3",
+        "layers": "6-layer composite",
+        "chemical_resistance": "Good",
+        "impact_strength": "Medium",
+        "clarity": "Opaque"
+      },
+      "characteristics": {
+        "product_state_compatibility": [
+          "Liquid"
+        ],
+        "viscosity_range": [
+          "Low",
+          "Medium"
+        ],
+        "ph_tolerance": [
+          "Acidic",
+          "Neutral"
+        ],
+        "temperature_range": [
+          "Cold",
+          "Ambient"
+        ],
+        "oxygen_barrier": "Excellent",
+        "moisture_barrier": "Excellent",
+        "light_barrier": "Excellent",
+        "chemical_resistance": "Good",
+        "cost_category": "Standard",
+        "typical_volumes": [
+          "200ml",
+          "500ml",
+          "1L",
+          "2L"
+        ]
+      },
+      "applications": [
+        "Milk",
+        "Juice",
+        "Liquid Foods",
+        "Wine"
+      ],
+      "sustainability": {
+        "recyclable": true,
+        "pcr_available": false,
+        "biodegradable": false,
+        "carbon_footprint": "Low"
+      },
+      "pros": [
+        "Aseptic capability",
+        "Space efficient",
+        "Renewable materials",
+        "Long shelf life"
+      ],
+      "cons": [
+        "Limited shapes",
+        "Requires special recycling",
+        "Multi-layer complexity"
+      ]
+    },
+    "Blister_Pack": {
+      "material_type": "Pharmaceutical Packaging",
+      "technical_specs": {
+        "base_material": "PVC/PVDC or Aluminum",
+        "thickness": "0.15-0.30mm",
+        "chemical_resistance": "Excellent",
+        "impact_strength": "Medium",
+        "clarity": "Transparent to Opaque"
+      },
+      "characteristics": {
+        "product_state_compatibility": [
+          "Solid",
+          "Tablets",
+          "Capsules"
+        ],
+        "viscosity_range": [
+          "N/A"
+        ],
+        "ph_tolerance": [
+          "Neutral"
+        ],
+        "temperature_range": [
+          "Cold",
+          "Ambient"
+        ],
+        "oxygen_barrier": "Excellent",
+        "moisture_barrier": "Excellent",
+        "light_barrier": "Excellent",
+        "chemical_resistance": "Excellent",
+        "cost_category": "Standard",
+        "typical_volumes": [
+          "Unit dose",
+          "Multi-dose"
+        ]
+      },
+      "applications": [
+        "Tablets",
+        "Capsules",
+        "Medical Devices",
+        "Electronics"
+      ],
+      "sustainability": {
+        "recyclable": true,
+        "pcr_available": false,
+        "biodegradable": false,
+        "carbon_footprint": "Medium"
+      },
+      "pros": [
+        "Unit dose protection",
+        "Tamper evident",
+        "Precise dosing",
+        "Product visibility"
+      ],
+      "cons": [
+        "Complex recycling",
+        "Higher cost",
+        "Limited to solids"
+      ]
+    },
+    "Flexible_Pouch": {
+      "material_type": "Flexible Packaging",
+      "technical_specs": {
+        "structure": "Multi-layer laminate",
+        "thickness": "50-200 microns",
+        "chemical_resistance": "Good",
+        "impact_strength": "High",
+        "clarity": "Variable"
+      },
+      "characteristics": {
+        "product_state_compatibility": [
+          "Liquid",
+          "Powder",
+          "Solid",
+          "Semi-solid"
+        ],
+        "viscosity_range": [
+          "Low",
+          "Medium",
+          "High"
+        ],
+        "ph_tolerance": [
+          "Acidic",
+          "Neutral",
+          "Basic"
+        ],
+        "temperature_range": [
+          "Cold",
+          "Ambient"
+        ],
+        "oxygen_barrier": "Medium",
+        "moisture_barrier": "Medium",
+        "light_barrier": "Medium",
+        "chemical_resistance": "Medium",
+        "cost_category": "Economy",
+        "typical_volumes": [
+          "50ml",
+          "100ml",
+          "500ml",
+          "1kg",
+          "5kg"
+        ]
+      },
+      "applications": [
+        "Snacks",
+        "Pet Food",
+        "Detergents",
+        "Powders"
+      ],
+      "sustainability": {
+        "recyclable": false,
+        "pcr_available": true,
+        "biodegradable": true,
+        "carbon_footprint": "Low"
+      },
+      "pros": [
+        "Material efficient",
+        "Lightweight",
+        "Design flexibility",
+        "Cost effective"
+      ],
+      "cons": [
+        "Limited barrier",
+        "Puncture risk",
+        "Recycling challenges"
+      ]
+    },
+    "Corrugated_Box": {
+      "material_type": "Secondary Packaging",
+      "technical_specs": {
+        "flute_types": [
+          "A",
+          "B",
+          "C",
+          "E"
+        ],
+        "edge_crush_test": "4-8 kN/m",
+        "chemical_resistance": "Poor",
+        "impact_strength": "High",
+        "clarity": "Opaque"
+      },
+      "characteristics": {
+        "product_state_compatibility": [
+          "Solid",
+          "Packaged goods"
+        ],
+        "viscosity_range": [
+          "N/A"
+        ],
+        "ph_tolerance": [
+          "Neutral"
+        ],
+        "temperature_range": [
+          "Cold",
+          "Ambient"
+        ],
+        "oxygen_barrier": "None",
+        "moisture_barrier": "Poor",
+        "light_barrier": "Excellent",
+        "chemical_resistance": "Poor",
+        "cost_category": "Economy",
+        "typical_volumes": [
+          "Small",
+          "Medium",
+          "Large",
+          "Bulk"
+        ]
+      },
+      "applications": [
+        "Shipping",
+        "Display",
+        "Storage",
+        "E-commerce"
+      ],
+      "sustainability": {
+        "recyclable": true,
+        "pcr_available": true,
+        "biodegradable": true,
+        "carbon_footprint": "Low"
+      },
+      "pros": [
+        "Renewable material",
+        "Recyclable",
+        "Stackable",
+        "Customizable"
+      ],
+      "cons": [
+        "Moisture sensitive",
+        "Limited durability",
+        "Bulk storage required"
+      ]
+    },
+    "Thermoformed_Tray": {
+      "material_type": "Protective Packaging",
+      "technical_specs": {
+        "materials": "PET, PP, PS",
+        "thickness": "0.5-3.0mm",
+        "chemical_resistance": "Good",
+        "impact_strength": "High",
+        "clarity": "Excellent"
+      },
+      "characteristics": {
+        "product_state_compatibility": [
+          "Solid",
+          "Electronics",
+          "Fragile items"
+        ],
+        "viscosity_range": [
+          "N/A"
+        ],
+        "ph_tolerance": [
+          "Neutral"
+        ],
+        "temperature_range": [
+          "Cold",
+          "Ambient"
+        ],
+        "oxygen_barrier": "Poor",
+        "moisture_barrier": "Poor",
+        "light_barrier": "Poor",
+        "chemical_resistance": "Good",
+        "cost_category": "Standard",
+        "typical_volumes": [
+          "Custom fit"
+        ]
+      },
+      "applications": [
+        "Electronics",
+        "Medical Devices",
+        "Fragile Products",
+        "Food"
+      ],
+      "sustainability": {
+        "recyclable": true,
+        "pcr_available": true,
+        "biodegradable": false,
+        "carbon_footprint": "Medium"
+      },
+      "pros": [
+        "Precise fit",
+        "Product protection",
+        "Visual appeal",
+        "Stackable"
+      ],
+      "cons": [
+        "Custom tooling",
+        "Limited barrier",
+        "Plastic waste"
+      ]
+    }
+  },
+  "recommendation_rules": {
+    "high_barrier_requirements": {
+      "triggers": [
+        {
+          "oxygen_sensitivity": "High"
+        },
+        {
+          "moisture_sensitivity": "High"
+        },
+        {
+          "light_sensitivity": "High"
+        },
+        {
+          "shelf_life_requirement": "Years"
+        }
+      ],
+      "recommended_materials": [
+        "Glass_Bottle",
+        "Aluminum_Can",
+        "Tetra_Pak",
+        "Blister_Pack"
+      ],
+      "avoid_materials": [
+        "Flexible_Pouch",
+        "Corrugated_Box"
+      ],
+      "priority_score": 25,
+      "explanation": "High barrier materials needed for maximum protection"
+    },
+    "pharmaceutical_grade": {
+      "triggers": [
+        {
+          "industry_category": "Pharma"
+        },
+        {
+          "regulatory_requirements": "High"
+        },
+        {
+          "sterility_required": "Yes"
+        }
+      ],
+      "recommended_materials": [
+        "Blister_Pack",
+        "Glass_Bottle",
+        "Aluminum_Can"
+      ],
+      "avoid_materials": [
+        "Flexible_Pouch",
+        "HDPE_Bottle"
+      ],
+      "priority_score": 30,
+      "explanation": "Pharmaceutical grade materials required for safety and compliance"
+    },
+    "food_grade_requirements": {
+      "triggers": [
+        {
+          "industry_category": "Food"
+        },
+        {
+          "direct_food_contact": "Yes"
+        }
+      ],
+      "recommended_materials": [
+        "Glass_Bottle",
+        "PET_Bottle",
+        "Aluminum_Can",
+        "Tetra_Pak"
+      ],
+      "avoid_materials": [],
+      "priority_score": 20,
+      "explanation": "Food-safe materials required for direct contact applications"
+    },
+    "cost_optimization": {
+      "triggers": [
+        {
+          "budget_range": "Economy"
+        },
+        {
+          "cost_priority": "High"
+        }
+      ],
+      "recommended_materials": [
+        "HDPE_Bottle",
+        "PET_Bottle",
+        "Flexible_Pouch",
+        "Corrugated_Box"
+      ],
+      "avoid_materials": [
+        "Glass_Bottle"
+      ],
+      "priority_score": 15,
+      "explanation": "Cost-effective materials selected to meet budget constraints"
+    },
+    "premium_positioning": {
+      "triggers": [
+        {
+          "budget_range": "Premium"
+        },
+        {
+          "brand_positioning": "Luxury"
+        },
+        {
+          "target_market": "Premium"
+        }
+      ],
+      "recommended_materials": [
+        "Glass_Bottle",
+        "Aluminum_Can"
+      ],
+      "avoid_materials": [
+        "Flexible_Pouch",
+        "Corrugated_Box"
+      ],
+      "priority_score": 18,
+      "explanation": "Premium materials enhance brand perception and product value"
+    },
+    "sustainability_focus": {
+      "triggers": [
+        {
+          "sustainability_priority": "Eco-focused"
+        },
+        {
+          "recyclability_requirement": "High"
+        }
+      ],
+      "recommended_materials": [
+        "Glass_Bottle",
+        "Aluminum_Can",
+        "Flexible_Pouch"
+      ],
+      "boost_recyclable": true,
+      "priority_score": 12,
+      "explanation": "Environmentally sustainable materials with high recyclability"
+    },
+    "temperature_sensitive": {
+      "triggers": [
+        {
+          "storage_temperature": "Cold"
+        },
+        {
+          "storage_temperature": "Frozen"
+        },
+        {
+          "temperature_stability": "Critical"
+        }
+      ],
+      "recommended_materials": [
+        "Glass_Bottle",
+        "Aluminum_Can",
+        "Tetra_Pak"
+      ],
+      "avoid_materials": [
+        "Flexible_Pouch"
+      ],
+      "priority_score": 20,
+      "explanation": "Temperature-resistant materials for cold chain applications"
+    },
+    "chemical_compatibility": {
+      "triggers": [
+        {
+          "ph_level": "Acidic"
+        },
+        {
+          "ph_level": "Basic"
+        },
+        {
+          "chemical_resistance_needed": "High"
+        }
+      ],
+      "recommended_materials": [
+        "Glass_Bottle",
+        "HDPE_Bottle"
+      ],
+      "avoid_materials": [
+        "PET_Bottle",
+        "Aluminum_Can"
+      ],
+      "priority_score": 22,
+      "explanation": "Chemically resistant materials for aggressive formulations"
+    },
+    "liquid_products": {
+      "triggers": [
+        {
+          "product_state": "Liquid"
+        }
+      ],
+      "recommended_materials": [
+        "HDPE_Bottle",
+        "PET_Bottle",
+        "Glass_Bottle",
+        "Tetra_Pak"
+      ],
+      "avoid_materials": [
+        "Blister_Pack",
+        "Thermoformed_Tray"
+      ],
+      "priority_score": 25,
+      "explanation": "Liquid-compatible containers with appropriate sealing"
+    },
+    "solid_dosage_forms": {
+      "triggers": [
+        {
+          "product_state": "Solid"
+        },
+        {
+          "dosage_form": "Tablet"
+        },
+        {
+          "dosage_form": "Capsule"
+        }
+      ],
+      "recommended_materials": [
+        "Blister_Pack",
+        "Glass_Bottle",
+        "HDPE_Bottle"
+      ],
+      "avoid_materials": [
+        "Tetra_Pak",
+        "Flexible_Pouch"
+      ],
+      "priority_score": 20,
+      "explanation": "Solid dosage packaging with moisture protection"
+    },
+    "powder_products": {
+      "triggers": [
+        {
+          "product_state": "Powder"
+        },
+        {
+          "particle_size": "Fine"
+        }
+      ],
+      "recommended_materials": [
+        "Aluminum_Can",
+        "Flexible_Pouch",
+        "Glass_Bottle"
+      ],
+      "avoid_materials": [
+        "Blister_Pack"
+      ],
+      "priority_score": 18,
+      "explanation": "Moisture-resistant containers suitable for powder storage"
+    },
+    "high_viscosity": {
+      "triggers": [
+        {
+          "viscosity": "High"
+        }
+      ],
+      "recommended_materials": [
+        "HDPE_Bottle",
+        "Glass_Bottle",
+        "Flexible_Pouch"
+      ],
+      "avoid_materials": [
+        "Tetra_Pak"
+      ],
+      "priority_score": 15,
+      "explanation": "Wide-mouth containers for thick, viscous products"
+    }
+  },
+  "scoring_parameters": {
+    "compatibility_weights": {
+      "product_state": 25,
+      "barrier_requirements": 20,
+      "chemical_compatibility": 15,
+      "cost_alignment": 12,
+      "temperature_requirements": 10,
+      "sustainability_match": 8,
+      "volume_suitability": 5,
+      "regulatory_compliance": 5
+    },
+    "barrier_scoring": {
+      "oxygen": {
+        "High_need": {
+          "Excellent": 20,
+          "High": 15,
+          "Medium": 5,
+          "Low": -5
+        },
+        "Medium_need": {
+          "Excellent": 15,
+          "High": 10,
+          "Medium": 8,
+          "Low": 3
+        },
+        "Low_need": {
+          "Excellent": 10,
+          "High": 8,
+          "Medium": 6,
+          "Low": 5
+        },
+        "None": {
+          "Excellent": 5,
+          "High": 5,
+          "Medium": 5,
+          "Low": 5
+        }
+      },
+      "moisture": {
+        "High_need": {
+          "Excellent": 20,
+          "High": 15,
+          "Medium": 5,
+          "Low": -5
+        },
+        "Medium_need": {
+          "Excellent": 15,
+          "High": 10,
+          "Medium": 8,
+          "Low": 3
+        },
+        "Low_need": {
+          "Excellent": 10,
+          "High": 8,
+          "Medium": 6,
+          "Low": 5
+        },
+        "None": {
+          "Excellent": 5,
+          "High": 5,
+          "Medium": 5,
+          "Low": 5
+        }
+      },
+      "light": {
+        "High_need": {
+          "Excellent": 20,
+          "High": 15,
+          "Medium": 5,
+          "Low": -5
+        },
+        "Medium_need": {
+          "Excellent": 15,
+          "High": 10,
+          "Medium": 8,
+          "Low": 3
+        },
+        "Low_need": {
+          "Excellent": 10,
+          "High": 8,
+          "Medium": 6,
+          "Low": 5
+        },
+        "None": {
+          "Excellent": 5,
+          "High": 5,
+          "Medium": 5,
+          "Low": 5
+        }
+      }
+    },
+    "cost_scoring": {
+      "Economy": {
+        "Economy": 15,
+        "Standard": 5,
+        "Premium": -10
+      },
+      "Standard": {
+        "Economy": 10,
+        "Standard": 15,
+        "Premium": 8
+      },
+      "Premium": {
+        "Economy": -5,
+        "Standard": 8,
+        "Premium": 15
       }
     }
   }
