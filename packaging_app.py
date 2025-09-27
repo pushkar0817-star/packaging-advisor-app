@@ -422,6 +422,11 @@ def recommendation_page(db):
             # Get recommendations
             recommendations = get_packaging_recommendations(auto_params, db)
 
+        # CHECK IF RECOMMENDATIONS EXIST - FIX FOR THE ERROR
+        if not recommendations:
+            st.error("❌ No packaging materials found in database. Please check your database configuration.")
+            return
+
         st.success(f"🎉 Here are the packaging recommendations for **{product_name}**!")
 
         # Show what AI detected
@@ -487,11 +492,11 @@ def recommendation_page(db):
                     for con in rec['data'].get('cons', []):
                         st.write(f"• {con}")
 
-        # FINAL RECOMMENDATIONS SUMMARY - FIXED
+        # FINAL RECOMMENDATIONS SUMMARY - FIXED WITH ERROR CHECKING
         st.markdown("---")
         st.markdown(f"## 📦 **Final Packaging Recommendations for {product_name}**")
 
-        if recommendations:
+        if recommendations and len(recommendations) > 0:
             top_3 = recommendations[:3]
 
             col1, col2, col3 = st.columns(3)
@@ -530,13 +535,17 @@ def recommendation_page(db):
                     if i == 0:  # Best choice
                         st.markdown("**🎯 RECOMMENDED CHOICE**")
 
-        # Summary message
-        st.markdown("---")
-        st.info(f"""
-        **💡 Summary:** Based on your product '{product_name}' with {purpose.lower()} purpose, 
-        {cost.lower()} budget, and {shelf_life.lower()} shelf life, we recommend **{recommendations[0]['name']}** 
-        as your best packaging solution with a {recommendations[0]['score']:.0f}% compatibility match.
-        """)
+            # Summary message - FIXED WITH SAFE ACCESS
+            st.markdown("---")
+            if len(recommendations) > 0:
+                best_recommendation = recommendations[0]
+                st.info(f"""
+                **💡 Summary:** Based on your product '{product_name}' with {purpose.lower()} purpose, 
+                {cost.lower()} budget, and {shelf_life.lower()} shelf life, we recommend **{best_recommendation['name']}** 
+                as your best packaging solution with a {best_recommendation['score']:.0f}% compatibility match.
+                """)
+        else:
+            st.warning("⚠️ No recommendations could be generated. Please check your database configuration.")
 
 def browse_products_page(db):
     st.header("📋 Browse Products Database")
@@ -599,7 +608,7 @@ def browse_products_page(db):
                 st.write("**Packaging Solutions:**")
                 st.write(f"• Primary: {', '.join(packaging.get('primary', []))}")
                 st.write(f"• Secondary: {', '.join(packaging.get('secondary', []))}")
-                st.write(f"• Tertiary: {', '.join(packaging.get('tertiary', []))}")
+                st.write(f"• Tertiary: {', '.join(packaging.get('tertiary', []))}") 
 
 def save_product_page(db):
     st.header("💾 Save New Product")
