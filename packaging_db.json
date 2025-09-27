@@ -3,37 +3,396 @@
     "Milk": {
       "basic_info": {
         "category": "Food",
-        "subcategory": "Liquid",
+        "subcategory": "Liquid Dairy",
         "intended_market": "Retail"
       },
+      "properties": {
+        "weight_volume": "500ml - 1L",
+        "shape_form": "Liquid",
+        "shelf_life": "Short-term",
+        "fragility": "Medium",
+        "moisture_sensitivity": "No",
+        "light_sensitivity": "Yes"
+      },
+      "handling": {
+        "mode_distribution": "Cold Chain",
+        "transport_conditions": "2-4°C, Refrigerated"
+      },
+      "consumer": {
+        "target_consumer": "General Population, Families",
+        "branding_printing": "Full Color Flexographic, Nutritional Info"
+      },
+      "regulatory": {
+        "compliance": ["FDA 21 CFR 177", "EU 10/2011", "FSSAI", "ISO 22000"],
+        "sustainability": ["Recyclable HDPE", "Carbon Neutral Transport", "Renewable Energy Processing"]
+      },
       "packaging": {
-        "primary": ["HDPE Bottle", "Tetra Pak Carton"],
-        "secondary": ["Carton Sleeve", "Shrink Film"],
-        "tertiary": ["Corrugated Box (B-Flute)"]
+        "primary": ["HDPE Bottle with EVOH Barrier", "Tetra Pak Aseptic", "Glass Bottle"],
+        "secondary": ["PE Shrink Film", "Cardboard Carrier", "Crate System"],
+        "tertiary": ["Refrigerated Container", "Insulated Corrugated Box", "Plastic Crates"]
       }
     },
+    
+    "Orange Juice": {
+      "basic_info": {
+        "category": "Food",
+        "subcategory": "Beverage",
+        "intended_market": "Retail"
+      },
+      "properties": {
+        "weight_volume": "200ml - 2L",
+        "shape_form": "Liquid",
+        "shelf_life": "Medium-term",
+        "fragility": "Low",
+        "moisture_sensitivity": "No",
+        "light_sensitivity": "Yes"
+      },
+      "handling": {
+        "mode_distribution": "Ambient/Cold Chain",
+        "transport_conditions": "15-25°C or 2-4°C"
+      },
+      "consumer": {
+        "target_consumer": "Health Conscious, Children, Adults",
+        "branding_printing": "Rotogravure, Vitamin Content Display"
+      },
+      "regulatory": {
+        "compliance": ["FDA GRAS", "FSSAI", "BRC", "SQF"],
+        "sustainability": ["FSC Certified Carton", "Plant-based Cap", "Recyclable Materials"]
+      },
+      "packaging": {
+        "primary": ["Tetra Pak Brick Aseptic", "PET Bottle with UV Barrier", "Glass Bottle"],
+        "secondary": ["Shrink Wrap", "Tray Pack", "Multi-pack Carrier"],
+        "tertiary": ["Corrugated RSC Box", "Plastic Crates", "Pallet Wrap"]
+      }
+    },
+
+    "Chocolate Bar": {
+      "basic_info": {
+        "category": "Food",
+        "subcategory": "Confectionery",
+        "intended_market": "Retail"
+      },
+      "properties": {
+        "weight_volume": "50g - 200g",
+        "shape_form": "Solid Block",
+        "shelf_life": "Long-term",
+        "fragility": "High",
+        "moisture_sensitivity": "Yes",
+        "light_sensitivity": "Yes"
+      },
+      "handling": {
+        "mode_distribution": "Temperature Controlled",
+        "transport_conditions": "18-22°C, <60% RH"
+      },
+      "consumer": {
+        "target_consumer": "All Age Groups",
+        "branding_printing": "Offset Printing, Premium Finishes"
+      },
+      "regulatory": {
+        "compliance": ["FDA", "EU Novel Foods", "Cocoa Certification"],
+        "sustainability": ["Compostable Wrapper", "Fair Trade Sourcing", "Carbon Neutral"]
+      },
+      "packaging": {
+        "primary": ["Aluminum Foil + Paper Wrapper", "Metallized PET Film", "Compostable Film"],
+        "secondary": ["Folding Carton", "Display Box"],
+        "tertiary": ["Corrugated Box", "Temperature Controlled Container"]
+      }
+    },
+
     "Tablet": {
       "basic_info": {
-        "category": "Pharmaceuticals",
-        "subcategory": "Solid",
-        "intended_market": "Retail"
+        "category": "Pharma",
+        "subcategory": "Solid Dosage",
+        "intended_market": "Prescription"
+      },
+      "properties": {
+        "weight_volume": "50mg - 1000mg",
+        "shape_form": "Compressed Tablet",
+        "shelf_life": "Long-term",
+        "fragility": "Medium",
+        "moisture_sensitivity": "Yes",
+        "light_sensitivity": "Yes"
+      },
+      "handling": {
+        "mode_distribution": "Controlled Environment",
+        "transport_conditions": "15-30°C, <65% RH"
+      },
+      "consumer": {
+        "target_consumer": "Patients, Healthcare Providers",
+        "branding_printing": "Pharmaceutical Grade, Braille, QR Code"
+      },
+      "regulatory": {
+        "compliance": ["USP <661>", "EU Directive 2001/83/EC", "ICH Q1A", "GDP Guidelines"],
+        "sustainability": ["Recyclable Aluminum", "Minimal Packaging", "Green Chemistry"]
       },
       "packaging": {
-        "primary": ["Blister Pack (PVC/Alu)"],
-        "secondary": ["Paperboard Carton"],
-        "tertiary": ["Corrugated Box (E-Flute)"]
+        "primary": ["Alu-Alu Blister", "PVC-PVDC Blister", "HDPE Bottle with Desiccant"],
+        "secondary": ["Pharmaceutical Carton", "Patient Information Leaflet"],
+        "tertiary": ["Tamper Evident Box", "Serialized Container", "Cold Chain Box"]
       }
     },
+
+    "Injection Vial": {
+      "basic_info": {
+        "category": "Pharma",
+        "subcategory": "Injectable",
+        "intended_market": "Hospital"
+      },
+      "properties": {
+        "weight_volume": "1ml - 50ml",
+        "shape_form": "Liquid/Lyophilized",
+        "shelf_life": "Medium-term",
+        "fragility": "High",
+        "moisture_sensitivity": "Yes",
+        "light_sensitivity": "Yes"
+      },
+      "handling": {
+        "mode_distribution": "Cold Chain",
+        "transport_conditions": "2-8°C, Validated"
+      },
+      "consumer": {
+        "target_consumer": "Healthcare Professionals",
+        "branding_printing": "Laser Etching, Serialization"
+      },
+      "regulatory": {
+        "compliance": ["USP <1>", "EU GMP Annex 1", "FDA 21 CFR 211", "WHO TRS"],
+        "sustainability": ["Glass Recycling Program", "Reduced Packaging", "Green Manufacturing"]
+      },
+      "packaging": {
+        "primary": ["Type I Borosilicate Vial", "Bromobutyl Stopper", "Aluminum Crimp Seal"],
+        "secondary": ["Tray with Dividers", "Sterile Pouch"],
+        "tertiary": ["Validated Cold Box", "Temperature Logger", "Insulated Shipper"]
+      }
+    },
+
     "Shampoo": {
       "basic_info": {
         "category": "Cosmetics",
-        "subcategory": "Liquid",
+        "subcategory": "Hair Care",
         "intended_market": "Retail"
       },
+      "properties": {
+        "weight_volume": "100ml - 1L",
+        "shape_form": "Viscous Liquid",
+        "shelf_life": "Long-term",
+        "fragility": "Low",
+        "moisture_sensitivity": "No",
+        "light_sensitivity": "No"
+      },
+      "handling": {
+        "mode_distribution": "Ambient",
+        "transport_conditions": "5-40°C"
+      },
+      "consumer": {
+        "target_consumer": "All Demographics",
+        "branding_printing": "IML, Silk Screen, Digital"
+      },
+      "regulatory": {
+        "compliance": ["FDA 21 CFR 701", "EU Cosmetics Regulation", "ISO 22716"],
+        "sustainability": ["PCR HDPE", "Refillable System", "Waterless Formula"]
+      },
       "packaging": {
-        "primary": ["PET Bottle", "Laminated Sachet"],
-        "secondary": ["Shrink Wrap", "Carton"],
-        "tertiary": ["Corrugated Box (C-Flute)"]
+        "primary": ["HDPE Bottle", "PCR PET Bottle", "Aluminum Bottle"],
+        "secondary": ["Shrink Sleeve", "Pressure Sensitive Label"],
+        "tertiary": ["Corrugated Box", "Bulk Container"]
+      }
+    },
+
+    "Lipstick": {
+      "basic_info": {
+        "category": "Cosmetics",
+        "subcategory": "Color Cosmetics",
+        "intended_market": "Premium Retail"
+      },
+      "properties": {
+        "weight_volume": "3g - 4g",
+        "shape_form": "Waxy Stick",
+        "shelf_life": "Long-term",
+        "fragility": "Medium",
+        "moisture_sensitivity": "No",
+        "light_sensitivity": "No"
+      },
+      "handling": {
+        "mode_distribution": "Ambient",
+        "transport_conditions": "15-25°C"
+      },
+      "consumer": {
+        "target_consumer": "Women 16-65",
+        "branding_printing": "Hot Stamping, Embossing, UV Coating"
+      },
+      "regulatory": {
+        "compliance": ["FDA Color Additives", "EU Cosmetics Directive", "CPNP Notification"],
+        "sustainability": ["Refillable Case", "Biodegradable Components", "Minimal Packaging"]
+      },
+      "packaging": {
+        "primary": ["ABS Plastic Case", "Metal Mechanism", "PC Bullet"],
+        "secondary": ["Luxury Carton", "Velvet Pouch"],
+        "tertiary": ["Display Unit", "Master Carton"]
+      }
+    },
+
+    "Smartphone": {
+      "basic_info": {
+        "category": "Electronics",
+        "subcategory": "Mobile Device",
+        "intended_market": "Consumer Electronics"
+      },
+      "properties": {
+        "weight_volume": "150g - 250g",
+        "shape_form": "Rectangular Device",
+        "shelf_life": "Long-term",
+        "fragility": "High",
+        "moisture_sensitivity": "Yes",
+        "light_sensitivity": "No"
+      },
+      "handling": {
+        "mode_distribution": "Controlled Environment",
+        "transport_conditions": "10-35°C, <85% RH"
+      },
+      "consumer": {
+        "target_consumer": "Tech Consumers 13-65",
+        "branding_printing": "Premium Finishes, Holographic"
+      },
+      "regulatory": {
+        "compliance": ["FCC", "CE Marking", "RoHS", "WEEE"],
+        "sustainability": ["Recyclable Materials", "Minimal Plastic", "E-waste Program"]
+      },
+      "packaging": {
+        "primary": ["Thermoformed Tray", "Anti-static Bag", "Foam Insert"],
+        "secondary": ["Premium Rigid Box", "Accessories Kit"],
+        "tertiary": ["Master Carton", "Palletized Shipping"]
+      }
+    },
+
+    "Industrial Adhesive": {
+      "basic_info": {
+        "category": "Industrial",
+        "subcategory": "Chemical",
+        "intended_market": "B2B"
+      },
+      "properties": {
+        "weight_volume": "500ml - 20L",
+        "shape_form": "Viscous Liquid",
+        "shelf_life": "Medium-term",
+        "fragility": "Low",
+        "moisture_sensitivity": "Yes",
+        "light_sensitivity": "Yes"
+      },
+      "handling": {
+        "mode_distribution": "Hazmat Certified",
+        "transport_conditions": "ADR/IATA Compliant"
+      },
+      "consumer": {
+        "target_consumer": "Industrial Users",
+        "branding_printing": "Chemical Resistant Labels, GHS Symbols"
+      },
+      "regulatory": {
+        "compliance": ["REACH", "GHS", "OSHA HCS", "UN Packaging Standards"],
+        "sustainability": ["Solvent-free Formula", "Recyclable Container", "Reduced VOCs"]
+      },
+      "packaging": {
+        "primary": ["UN Approved HDPE Container", "Metal Pail", "IBC Tote"],
+        "secondary": ["Absorbent Material", "Overpacking"],
+        "tertiary": ["UN Certified Box", "Hazmat Shipping"]
+      }
+    },
+
+    "Laundry Detergent": {
+      "basic_info": {
+        "category": "Home Care",
+        "subcategory": "Cleaning",
+        "intended_market": "Retail"
+      },
+      "properties": {
+        "weight_volume": "1L - 5L",
+        "shape_form": "Liquid",
+        "shelf_life": "Long-term",
+        "fragility": "Low",
+        "moisture_sensitivity": "No",
+        "light_sensitivity": "No"
+      },
+      "handling": {
+        "mode_distribution": "Ambient",
+        "transport_conditions": "5-40°C"
+      },
+      "consumer": {
+        "target_consumer": "Households",
+        "branding_printing": "Flexographic, Dosage Instructions"
+      },
+      "regulatory": {
+        "compliance": ["EPA DfE", "EU Detergents Regulation", "Biodegradability"],
+        "sustainability": ["Concentrated Formula", "PCR Plastic", "Phosphate Free"]
+      },
+      "packaging": {
+        "primary": ["HDPE Bottle with Handle", "Flexible Pouch", "Cardboard Carton"],
+        "secondary": ["Shrink Wrap", "Multi-pack"],
+        "tertiary": ["Corrugated Box", "Pallet Wrap"]
+      }
+    },
+
+    "Baby Formula": {
+      "basic_info": {
+        "category": "Food",
+        "subcategory": "Infant Nutrition",
+        "intended_market": "Specialized Retail"
+      },
+      "properties": {
+        "weight_volume": "400g - 900g",
+        "shape_form": "Powder",
+        "shelf_life": "Long-term",
+        "fragility": "Low",
+        "moisture_sensitivity": "Yes",
+        "light_sensitivity": "Yes"
+      },
+      "handling": {
+        "mode_distribution": "Controlled Environment",
+        "transport_conditions": "15-25°C, <60% RH"
+      },
+      "consumer": {
+        "target_consumer": "Parents, Infants 0-12 months",
+        "branding_printing": "Nutritional Facts, Safety Instructions"
+      },
+      "regulatory": {
+        "compliance": ["FDA Infant Formula Act", "EU Commission Directive", "Codex Alimentarius"],
+        "sustainability": ["Recyclable Can", "Sustainable Sourcing", "Carbon Footprint Reduction"]
+      },
+      "packaging": {
+        "primary": ["Tinplate Can with Easy-open End", "Nitrogen Flushed", "Desiccant"],
+        "secondary": ["Shrink Sleeve", "Information Booklet"],
+        "tertiary": ["Case Pack", "Shrink Wrapped Tray"]
+      }
+    },
+
+    "Dog Food": {
+      "basic_info": {
+        "category": "Pet Care",
+        "subcategory": "Pet Nutrition",
+        "intended_market": "Pet Specialty"
+      },
+      "properties": {
+        "weight_volume": "1kg - 15kg",
+        "shape_form": "Kibble/Pellets",
+        "shelf_life": "Long-term",
+        "fragility": "Low",
+        "moisture_sensitivity": "Yes",
+        "light_sensitivity": "No"
+      },
+      "handling": {
+        "mode_distribution": "Dry Storage",
+        "transport_conditions": "Ambient, Low Humidity"
+      },
+      "consumer": {
+        "target_consumer": "Pet Owners",
+        "branding_printing": "High-quality Graphics, Feeding Guide"
+      },
+      "regulatory": {
+        "compliance": ["AAFCO", "FDA CVM", "FEDIAF"],
+        "sustainability": ["Recyclable Bag", "Sustainable Protein", "Minimal Waste"]
+      },
+      "packaging": {
+        "primary": ["Multi-layer Barrier Bag", "Resealable Zipper", "Valve Bag"],
+        "secondary": ["Handle Integration"],
+        "tertiary": ["Corrugated Case", "Pallet Configuration"]
       }
     }
   }
