@@ -1,5 +1,4 @@
-# Now create the simplified Streamlit app with only 4 user inputs
-simplified_streamlit_code = '''
+
 import streamlit as st
 import json
 import os
@@ -22,7 +21,7 @@ def save_database(db):
 
 def get_auto_parameters(product_name, purpose, cost, shelf_life, db):
     """Automatically determine the 15 parameters based on user inputs and database"""
-    
+
     # Default parameters
     auto_params = {
         "product_state": "Liquid",
@@ -41,7 +40,7 @@ def get_auto_parameters(product_name, purpose, cost, shelf_life, db):
         "fragility_level": "Moderate",
         "shelf_life_requirement": shelf_life
     }
-    
+
     # Check if product exists in database
     products = db.get("products", {})
     if product_name in products:
@@ -50,11 +49,11 @@ def get_auto_parameters(product_name, purpose, cost, shelf_life, db):
         auto_params["budget_range"] = cost  # Always use user input for cost
         auto_params["shelf_life_requirement"] = shelf_life  # Always use user input for shelf life
         return auto_params
-    
+
     # Intelligent parameter detection based on product name and purpose
     product_lower = product_name.lower()
     purpose_lower = purpose.lower()
-    
+
     # Industry category detection
     if any(word in product_lower for word in ["tablet", "capsule", "medicine", "vitamin", "drug", "pharmaceutical"]):
         auto_params["industry_category"] = "Pharma"
@@ -65,7 +64,7 @@ def get_auto_parameters(product_name, purpose, cost, shelf_life, db):
         auto_params["light_sensitivity"] = "High"
         auto_params["safety_requirements"] = ["Child resistant"]
         auto_params["brand_positioning"] = "Standard"
-        
+
     elif any(word in product_lower for word in ["cream", "lotion", "shampoo", "cosmetic", "beauty", "skincare"]):
         auto_params["industry_category"] = "Cosmetic"
         auto_params["product_state"] = "Semi-solid" if "cream" in product_lower else "Liquid"
@@ -73,7 +72,7 @@ def get_auto_parameters(product_name, purpose, cost, shelf_life, db):
         auto_params["oxygen_sensitivity"] = "Low"
         auto_params["light_sensitivity"] = "Medium"
         auto_params["brand_positioning"] = "Premium"
-        
+
     elif any(word in product_lower for word in ["juice", "milk", "oil", "water", "drink", "beverage"]):
         auto_params["industry_category"] = "Food"
         auto_params["product_state"] = "Liquid"
@@ -82,13 +81,13 @@ def get_auto_parameters(product_name, purpose, cost, shelf_life, db):
             auto_params["oxygen_sensitivity"] = "High"
             auto_params["light_sensitivity"] = "High"
             auto_params["storage_temperature"] = "Cold"
-        
+
     elif any(word in product_lower for word in ["chemical", "adhesive", "solvent", "cleaner"]):
         auto_params["industry_category"] = "Chemical"
         auto_params["oxygen_sensitivity"] = "Medium"
         auto_params["moisture_sensitivity"] = "High"
         auto_params["safety_requirements"] = ["Hazmat"]
-        
+
     elif any(word in product_lower for word in ["electronic", "device", "phone", "computer"]):
         auto_params["industry_category"] = "Electronics"
         auto_params["product_state"] = "Solid"
@@ -96,22 +95,22 @@ def get_auto_parameters(product_name, purpose, cost, shelf_life, db):
         auto_params["moisture_sensitivity"] = "High"
         auto_params["safety_requirements"] = ["Anti-static"]
         auto_params["fragility_level"] = "Very Fragile"
-    
+
     # Purpose-based adjustments
     if "food" in purpose_lower:
         auto_params["industry_category"] = "Food"
         auto_params["oxygen_sensitivity"] = "High"
         auto_params["target_market"] = "Consumer retail"
-        
+
     elif "medical" in purpose_lower or "health" in purpose_lower:
         auto_params["industry_category"] = "Pharma"
         auto_params["target_market"] = "Medical"
         auto_params["safety_requirements"] = ["Sterile", "Tamper evident"]
-        
+
     elif "industrial" in purpose_lower:
         auto_params["target_market"] = "Industrial"
         auto_params["fragility_level"] = "Robust"
-    
+
     # Cost-based adjustments
     if cost == "Premium":
         auto_params["brand_positioning"] = "Premium"
@@ -119,12 +118,12 @@ def get_auto_parameters(product_name, purpose, cost, shelf_life, db):
     elif cost == "Economy":
         auto_params["brand_positioning"] = "Value"
         auto_params["sustainability_priority"] = "Cost focused"
-    
+
     # Shelf life adjustments
     if shelf_life in ["Months", "Years"]:
         auto_params["oxygen_sensitivity"] = "High"
         auto_params["moisture_sensitivity"] = "High"
-    
+
     return auto_params
 
 def calculate_packaging_score(user_inputs, material_name, material_data, db):
@@ -132,10 +131,10 @@ def calculate_packaging_score(user_inputs, material_name, material_data, db):
     total_score = 0
     max_possible_score = 0
     scoring_details = []
-    
+
     scoring_params = db.get("scoring_parameters", {})
     weights = scoring_params.get("compatibility_weights", {})
-    
+
     # Product State Compatibility (25 points)
     if user_inputs.get('product_state') in material_data['characteristics']['product_state_compatibility']:
         score = weights.get('product_state', 25)
@@ -144,28 +143,28 @@ def calculate_packaging_score(user_inputs, material_name, material_data, db):
     else:
         scoring_details.append("❌ Product state incompatible: +0")
     max_possible_score += weights.get('product_state', 25)
-    
+
     # Barrier Requirements (20 points)
     barrier_score = 0
     barrier_scoring = scoring_params.get("barrier_scoring", {})
-    
+
     for barrier_type in ['oxygen', 'moisture', 'light']:
         user_need = user_inputs.get(f'{barrier_type}_sensitivity', 'None')
         material_barrier = material_data['characteristics'][f'{barrier_type}_barrier'].lower()
-        
+
         if user_need in barrier_scoring.get(barrier_type, {}):
             need_mapping = barrier_scoring[barrier_type][user_need]
             barrier_points = need_mapping.get(material_barrier.title(), 0)
             barrier_score += barrier_points
-            
+
             if barrier_points > 0:
                 scoring_details.append(f"✅ {barrier_type.title()} barrier: +{barrier_points}")
             else:
                 scoring_details.append(f"⚠️ {barrier_type.title()} barrier: {barrier_points}")
-    
+
     total_score += barrier_score
     max_possible_score += weights.get('barrier_requirements', 20)
-    
+
     # Chemical Compatibility (15 points)
     user_ph = user_inputs.get('ph_level', 'Neutral')
     if user_ph in material_data['characteristics']['ph_tolerance']:
@@ -175,12 +174,12 @@ def calculate_packaging_score(user_inputs, material_name, material_data, db):
     else:
         scoring_details.append("❌ Chemical incompatibility: +0")
     max_possible_score += weights.get('chemical_compatibility', 15)
-    
+
     # Cost Alignment (12 points)
     cost_scoring = scoring_params.get("cost_scoring", {})
     user_budget = user_inputs.get('budget_range', 'Standard')
     material_cost = material_data['characteristics']['cost_category']
-    
+
     if user_budget in cost_scoring and material_cost in cost_scoring[user_budget]:
         cost_score = cost_scoring[user_budget][material_cost]
         total_score += cost_score
@@ -189,7 +188,7 @@ def calculate_packaging_score(user_inputs, material_name, material_data, db):
         else:
             scoring_details.append(f"⚠️ Cost mismatch: {cost_score}")
     max_possible_score += weights.get('cost_alignment', 12)
-    
+
     # Temperature Requirements (10 points)
     user_temp = user_inputs.get('storage_temperature', 'Ambient')
     if user_temp in material_data['characteristics']['temperature_range']:
@@ -199,7 +198,7 @@ def calculate_packaging_score(user_inputs, material_name, material_data, db):
     else:
         scoring_details.append("❌ Temperature incompatibility: +0")
     max_possible_score += weights.get('temperature_requirements', 10)
-    
+
     # Sustainability Match (8 points)
     sustain_score = 0
     if user_inputs.get('sustainability_priority') == 'Eco-focused':
@@ -211,53 +210,53 @@ def calculate_packaging_score(user_inputs, material_name, material_data, db):
             sustain_score += 2
     else:
         sustain_score = 4  # Neutral score for non-eco focused
-    
+
     total_score += sustain_score
     max_possible_score += weights.get('sustainability_match', 8)
     scoring_details.append(f"♻️ Sustainability match: +{sustain_score}")
-    
+
     # Apply recommendation rules bonuses
     rule_bonuses = apply_recommendation_rules(user_inputs, material_name, db)
     total_score += rule_bonuses
-    
+
     if rule_bonuses > 0:
         scoring_details.append(f"🎯 Rule bonuses: +{rule_bonuses:.1f}")
-    
+
     final_score = min(100, (total_score / max_possible_score) * 100) if max_possible_score > 0 else 0
-    
+
     return final_score, scoring_details
 
 def apply_recommendation_rules(user_inputs, material_name, db):
     """Apply intelligent recommendation rules for bonus points"""
     bonus_points = 0
     rules = db.get("recommendation_rules", {})
-    
+
     for rule_name, rule_data in rules.items():
         rule_triggered = False
-        
+
         # Check if rule is triggered
         for trigger in rule_data.get("triggers", []):
             for key, value in trigger.items():
                 if user_inputs.get(key) == value:
                     rule_triggered = True
                     break
-        
+
         if rule_triggered:
             if material_name in rule_data.get("recommended_materials", []):
                 bonus_points += rule_data.get("priority_score", 0) * 0.3  # 30% of priority as bonus
             elif material_name in rule_data.get("avoid_materials", []):
                 bonus_points -= rule_data.get("priority_score", 0) * 0.2  # 20% penalty
-    
+
     return bonus_points
 
 def get_packaging_recommendations(auto_params, db):
     """Generate intelligent packaging recommendations"""
     recommendations = []
     materials = db.get("packaging_materials", {})
-    
+
     for material_name, material_data in materials.items():
         score, details = calculate_packaging_score(auto_params, material_name, material_data, db)
-        
+
         recommendations.append({
             'name': material_name.replace('_', ' '),
             'material_name': material_name,
@@ -266,7 +265,7 @@ def get_packaging_recommendations(auto_params, db):
             'scoring_details': details,
             'reasons': generate_recommendation_reasons(auto_params, material_data, score)
         })
-    
+
     # Sort by score (highest first)
     recommendations.sort(key=lambda x: x['score'], reverse=True)
     return recommendations
@@ -274,27 +273,27 @@ def get_packaging_recommendations(auto_params, db):
 def generate_recommendation_reasons(auto_params, material_data, score):
     """Generate human-readable explanations for recommendations"""
     reasons = []
-    
+
     # Product state compatibility
     if auto_params.get('product_state') in material_data['characteristics']['product_state_compatibility']:
         reasons.append(f"✅ Perfect for {auto_params.get('product_state').lower()} products")
-    
+
     # Barrier properties
     barrier_reasons = []
     for barrier_type in ['oxygen', 'moisture', 'light']:
         user_need = auto_params.get(f'{barrier_type}_sensitivity', 'None')
         material_barrier = material_data['characteristics'][f'{barrier_type}_barrier']
-        
+
         if user_need == 'High' and material_barrier in ['Excellent', 'High']:
             barrier_reasons.append(f"{barrier_type}")
-    
+
     if barrier_reasons:
         reasons.append(f"🛡️ Excellent {', '.join(barrier_reasons)} protection")
-    
+
     # Cost alignment
     if auto_params.get('budget_range') == material_data['characteristics']['cost_category']:
         reasons.append(f"💰 Matches {auto_params.get('budget_range').lower()} budget perfectly")
-    
+
     # Sustainability
     if auto_params.get('sustainability_priority') == 'Eco-focused':
         sustain_features = []
@@ -304,10 +303,10 @@ def generate_recommendation_reasons(auto_params, material_data, score):
             sustain_features.append("PCR available")
         if material_data['sustainability']['biodegradable']:
             sustain_features.append("biodegradable")
-        
+
         if sustain_features:
             reasons.append(f"♻️ Eco-friendly: {', '.join(sustain_features)}")
-    
+
     # Score-based reasons
     if score >= 90:
         reasons.append("⭐ Exceptional compatibility match")
@@ -315,12 +314,12 @@ def generate_recommendation_reasons(auto_params, material_data, score):
         reasons.append("✨ Excellent compatibility")
     elif score >= 60:
         reasons.append("👍 Good compatibility")
-    
+
     # Technical advantages
     pros = material_data.get('pros', [])[:2]  # Top 2 pros
     for pro in pros:
         reasons.append(f"💪 {pro}")
-    
+
     return reasons
 
 def main():
@@ -330,20 +329,20 @@ def main():
         layout="wide",
         initial_sidebar_state="expanded"
     )
-    
+
     # Load database
     db = load_database()
-    
+
     # Header with user name
     st.title("🎯 Smart Packaging Advisor Pro")
     st.markdown('<p style="font-size: 16px; color: #666; margin-top: -10px;">Made by Pushkar Singhania, IIP Delhi, MS Student</p>', unsafe_allow_html=True)
     st.markdown("*AI-Powered Packaging Recommendations - Just 4 Simple Questions!*")
     st.markdown("---")
-    
+
     # Sidebar navigation
     with st.sidebar:
         st.markdown("### 🧭 Navigation")
-        
+
         page = st.radio("Select Function:", [
             "🎯 Get Smart Recommendations",
             "📋 Browse Products Database", 
@@ -351,13 +350,13 @@ def main():
             "📊 Material Database",
             "⚙️ System Info"
         ])
-        
+
         st.markdown("---")
         st.markdown("### 📊 Quick Stats")
         st.metric("Products", len(db.get("products", {})))
         st.metric("Materials", len(db.get("packaging_materials", {})))
         st.metric("Rules", len(db.get("recommendation_rules", {})))
-    
+
     if page == "🎯 Get Smart Recommendations":
         recommendation_page(db)
     elif page == "📋 Browse Products Database":
@@ -372,165 +371,165 @@ def main():
 def recommendation_page(db):
     st.header("🎯 Get Smart Packaging Recommendations")
     st.markdown("*Answer just 4 simple questions to get AI-powered packaging suggestions*")
-    
+
     # Create a centered form
     with st.container():
         col1, col2, col3 = st.columns([1, 2, 1])
-        
+
         with col2:
             st.markdown("### 📝 Tell us about your product")
-            
+
             # Question 1: Product Name
             product_name = st.text_input(
                 "🏷️ **1. What is your product name?**", 
                 placeholder="e.g., Premium Face Cream, Orange Juice, Vitamin C Tablets",
                 help="Enter the name of your product"
             )
-            
+
             # Question 2: Purpose
             purpose = st.selectbox(
                 "🎯 **2. What is the main purpose of packaging?**",
                 ["Protection & Storage", "Retail Display", "Transportation", "Medical Safety", "Food Safety", "Industrial Use"],
                 help="Select the primary purpose for your packaging"
             )
-            
+
             # Question 3: Cost
             cost = st.selectbox(
                 "💰 **3. What is your budget preference?**",
                 ["Economy", "Standard", "Premium"],
                 help="Choose your packaging budget level"
             )
-            
+
             # Question 4: Shelf Life
             shelf_life = st.selectbox(
                 "⏰ **4. How long should the product last?**",
                 ["Days", "Weeks", "Months", "Years"],
                 help="Select the expected shelf life of your product"
             )
-    
+
     st.markdown("---")
-    
+
     # Generate recommendations button
     if st.button("🎯 Get My Packaging Recommendations", type="primary", use_container_width=True):
         if not product_name:
             st.error("❌ Please enter a product name first!")
             return
-            
+
         with st.spinner("🤖 AI is analyzing your product and generating recommendations..."):
             # Get auto-generated parameters
             auto_params = get_auto_parameters(product_name, purpose, cost, shelf_life, db)
-            
+
             # Get recommendations
             recommendations = get_packaging_recommendations(auto_params, db)
-        
+
         st.success(f"🎉 Here are the packaging recommendations for **{product_name}**!")
-        
+
         # Show what AI detected
         with st.expander("🔍 What our AI detected about your product", expanded=False):
             col1, col2, col3 = st.columns(3)
-            
+
             with col1:
                 st.write("**Product Analysis:**")
                 st.write(f"• Industry: {auto_params['industry_category']}")
                 st.write(f"• State: {auto_params['product_state']}")
                 st.write(f"• Target Market: {auto_params['target_market']}")
-                
+
             with col2:
                 st.write("**Protection Needs:**")
                 st.write(f"• Oxygen: {auto_params['oxygen_sensitivity']}")
                 st.write(f"• Moisture: {auto_params['moisture_sensitivity']}")
                 st.write(f"• Light: {auto_params['light_sensitivity']}")
-                
+
             with col3:
                 st.write("**Requirements:**")
                 st.write(f"• Storage: {auto_params['storage_temperature']}")
                 st.write(f"• Positioning: {auto_params['brand_positioning']}")
                 st.write(f"• Sustainability: {auto_params['sustainability_priority']}")
-        
+
         # Display top 5 recommendations
         for i, rec in enumerate(recommendations[:5], 1):
             score_color = "green" if rec['score'] >= 75 else "orange" if rec['score'] >= 50 else "red"
-            
+
             with st.expander(f"#{i} {rec['name']} - {rec['score']:.1f}% Match", expanded=i<=3):
                 col_info, col_details, col_reasons = st.columns([1, 1, 1])
-                
+
                 with col_info:
                     st.markdown(f"**Score: :{score_color}[{rec['score']:.1f}%]**")
                     st.write(f"**Type:** {rec['data']['material_type']}")
                     st.write(f"**Cost:** {rec['data']['characteristics']['cost_category']}")
-                    
+
                     # Barrier properties
                     barriers = []
                     for barrier_type in ['oxygen', 'moisture', 'light']:
                         level = rec['data']['characteristics'][f'{barrier_type}_barrier']
                         barriers.append(f"{barrier_type.title()}: {level}")
                     st.write(f"**Barriers:** {', '.join(barriers)}")
-                
+
                 with col_details:
                     st.write("**Detailed Scoring:**")
                     for detail in rec['scoring_details'][:4]:  # Show top 4 scoring details
                         st.write(f"• {detail}")
-                
+
                 with col_reasons:
                     st.write("**Why This Packaging:**")
                     for reason in rec['reasons']:
                         st.write(f"• {reason}")
-                
+
                 # Pros and cons
                 col_pros, col_cons = st.columns(2)
                 with col_pros:
                     st.write("**✅ Advantages:**")
                     for pro in rec['data'].get('pros', []):
                         st.write(f"• {pro}")
-                
+
                 with col_cons:
                     st.write("**⚠️ Considerations:**")
                     for con in rec['data'].get('cons', []):
                         st.write(f"• {con}")
-        
+
         # FINAL RECOMMENDATIONS SUMMARY - FIXED
         st.markdown("---")
         st.markdown(f"## 📦 **Final Packaging Recommendations for {product_name}**")
-        
+
         if recommendations:
             top_3 = recommendations[:3]
-            
+
             col1, col2, col3 = st.columns(3)
-            
+
             for i, rec in enumerate(top_3):
                 with [col1, col2, col3][i]:
                     # Determine emoji based on score
                     if rec['score'] >= 75:
                         emoji = "🏆"
-                        color = "success"
+                        color = "28a745"
                     elif rec['score'] >= 50:
                         emoji = "🥈"
-                        color = "warning"
+                        color = "ffc107"
                     else:
                         emoji = "🥉"
-                        color = "info"
-                    
+                        color = "17a2b8"
+
                     st.markdown(f"""
-                    <div style="border: 2px solid #{'28a745' if color=='success' else '17a2b8' if color=='info' else 'ffc107'}; 
+                    <div style="border: 2px solid #{color}; 
                                 border-radius: 10px; padding: 15px; text-align: center; margin: 5px;">
                         <h4>{emoji} #{i+1} CHOICE</h4>
                         <h3>{rec['name']}</h3>
-                        <h2 style="color: #{'28a745' if color=='success' else '17a2b8' if color=='info' else 'ffc107'}">
+                        <h2 style="color: #{color}">
                             {rec['score']:.0f}% Match
                         </h2>
                         <p><strong>Type:</strong> {rec['data']['material_type']}</p>
                         <p><strong>Cost:</strong> {rec['data']['characteristics']['cost_category']}</p>
                     </div>
                     """, unsafe_allow_html=True)
-                    
+
                     # Key benefits
                     st.markdown("**🔑 Key Benefits:**")
                     for reason in rec['reasons'][:3]:
                         st.markdown(f"• {reason}")
-                    
+
                     if i == 0:  # Best choice
                         st.markdown("**🎯 RECOMMENDED CHOICE**")
-        
+
         # Summary message
         st.markdown("---")
         st.info(f"""
@@ -541,19 +540,19 @@ def recommendation_page(db):
 
 def browse_products_page(db):
     st.header("📋 Browse Products Database")
-    
+
     products = db.get("products", {})
-    
+
     if not products:
         st.warning("No products found in database.")
         return
-    
+
     # Search and filter
     col1, col2 = st.columns([2, 1])
-    
+
     with col1:
         search_term = st.text_input("🔍 Search Products:", placeholder="Type product name...")
-    
+
     with col2:
         categories = set()
         for product_data in products.values():
@@ -561,40 +560,40 @@ def browse_products_page(db):
                 categories.add(product_data["basic_info"]["category"])
         categories = sorted(list(categories))
         category_filter = st.selectbox("📂 Filter by Category:", ["All Categories"] + categories)
-    
+
     # Filter products
     filtered_products = []
     for product_name, product_data in products.items():
         product_category = product_data.get("basic_info", {}).get("category", "")
-        
+
         search_match = True
         if search_term:
             search_match = search_term.lower() in product_name.lower()
-        
+
         category_match = True
         if category_filter != "All Categories":
             category_match = product_category == category_filter
-        
+
         if search_match and category_match:
             filtered_products.append((product_name, product_data))
-    
+
     st.info(f"📊 Found {len(filtered_products)} products")
-    
+
     # Display products
     for product_name, product_data in filtered_products:
         with st.expander(f"📦 {product_name}"):
             col1, col2 = st.columns(2)
-            
+
             with col1:
                 basic_info = product_data.get("basic_info", {})
                 st.write(f"**Category:** {basic_info.get('category', 'N/A')}")
                 st.write(f"**Subcategory:** {basic_info.get('subcategory', 'N/A')}")
                 st.write(f"**Market:** {basic_info.get('intended_market', 'N/A')}")
-                
+
                 properties = product_data.get("properties", {})
                 st.write(f"**Volume/Weight:** {properties.get('weight_volume', 'N/A')}")
                 st.write(f"**Shelf Life:** {properties.get('shelf_life', 'N/A')}")
-            
+
             with col2:
                 packaging = product_data.get("packaging", {})
                 st.write("**Packaging Solutions:**")
@@ -605,23 +604,23 @@ def browse_products_page(db):
 def save_product_page(db):
     st.header("💾 Save New Product")
     st.markdown("*Add a new product to the database*")
-    
+
     product_name = st.text_input("Product Name:", placeholder="e.g., Premium Face Serum")
-    
+
     if product_name:
         if product_name in db.get("products", {}):
             st.error(f"Product '{product_name}' already exists!")
             return
-        
+
         # Simplified input using the 4-question format
         purpose = st.selectbox("Purpose:", ["Protection & Storage", "Retail Display", "Transportation", "Medical Safety", "Food Safety", "Industrial Use"])
         cost = st.selectbox("Budget:", ["Economy", "Standard", "Premium"])
         shelf_life = st.selectbox("Shelf Life:", ["Days", "Weeks", "Months", "Years"])
-        
+
         if st.button("💾 Save Product", type="primary"):
             # Generate auto parameters
             auto_params = get_auto_parameters(product_name, purpose, cost, shelf_life, db)
-            
+
             new_product = {
                 "basic_info": {
                     "category": auto_params["industry_category"],
@@ -644,7 +643,7 @@ def save_product_page(db):
                 "auto_parameters": auto_params,
                 "created_date": datetime.now().isoformat()
             }
-            
+
             db["products"][product_name] = new_product
             save_database(db)
             st.success(f"✅ Product '{product_name}' saved successfully!")
@@ -652,48 +651,48 @@ def save_product_page(db):
 
 def material_database_page(db):
     st.header("📊 Packaging Materials Database")
-    
+
     materials = db.get("packaging_materials", {})
-    
+
     if not materials:
         st.warning("No materials found in database.")
         return
-    
+
     # Material overview
     st.subheader("📈 Database Overview")
     col1, col2, col3 = st.columns(3)
-    
+
     with col1:
         st.metric("Total Materials", len(materials))
-    
+
     with col2:
         recyclable_count = sum(1 for m in materials.values() if m['sustainability']['recyclable'])
         st.metric("Recyclable Materials", recyclable_count)
-    
+
     with col3:
         cost_categories = [m['characteristics']['cost_category'] for m in materials.values()]
         premium_count = cost_categories.count('Premium')
         st.metric("Premium Materials", premium_count)
-    
-    # Material details
+
+    # Material details  
     for material_name, material_data in materials.items():
         with st.expander(f"📦 {material_name.replace('_', ' ')}"):
             col1, col2, col3 = st.columns(3)
-            
+
             with col1:
                 st.write("**Basic Properties:**")
                 chars = material_data['characteristics']
                 st.write(f"• Type: {material_data['material_type']}")
                 st.write(f"• Cost Category: {chars['cost_category']}")
                 st.write(f"• Product States: {', '.join(chars['product_state_compatibility'])}")
-            
+
             with col2:
                 st.write("**Barrier Properties:**")
                 st.write(f"• Oxygen: {chars['oxygen_barrier']}")
                 st.write(f"• Moisture: {chars['moisture_barrier']}")
                 st.write(f"• Light: {chars['light_barrier']}")
                 st.write(f"• Chemical Resistance: {chars['chemical_resistance']}")
-            
+
             with col3:
                 st.write("**Sustainability:**")
                 sust = material_data['sustainability']
@@ -703,20 +702,20 @@ def material_database_page(db):
 
 def system_info_page(db):
     st.header("⚙️ System Information")
-    
+
     col1, col2 = st.columns(2)
-    
+
     with col1:
         st.subheader("📊 Database Statistics")
         st.write(f"**Products:** {len(db.get('products', {}))}")
         st.write(f"**Packaging Materials:** {len(db.get('packaging_materials', {}))}")
         st.write(f"**Recommendation Rules:** {len(db.get('recommendation_rules', {}))}")
-        
+
         # Database size
         import sys
         db_size = sys.getsizeof(str(db)) / 1024  # KB
         st.write(f"**Database Size:** {db_size:.1f} KB")
-    
+
     with col2:
         st.subheader("🎯 System Features")
         st.write("✅ AI-Powered Recommendations")
@@ -726,7 +725,7 @@ def system_info_page(db):
         st.write("✅ Technical Material Database")
         st.write("✅ Sustainability Analysis")
         st.write("✅ Cost Optimization")
-    
+
     st.subheader("🤖 How It Works")
     st.write("""
     **Smart Packaging Advisor Pro** uses AI to:
@@ -736,7 +735,7 @@ def system_info_page(db):
     4. **Recommend** the best 3 packaging solutions
     5. **Explain** why each solution works for your product
     """)
-    
+
     # Footer
     st.markdown("---")
     st.markdown("""
@@ -748,26 +747,3 @@ def system_info_page(db):
 
 if __name__ == "__main__":
     main()
-'''
-
-# Save the simplified app
-with open('smart_packaging_advisor_pro.py', 'w') as f:
-    f.write(simplified_streamlit_code)
-
-print("✅ Updated smart_packaging_advisor_pro.py with simplified interface!")
-print("\n🎯 KEY CHANGES:")
-print("   1. ✅ FIXED: Final recommendations display with visual cards")
-print("   2. ✅ SIMPLIFIED: Only 4 user inputs required")
-print("   3. ✅ AUTO-DETECTION: AI handles 15+ parameters in background")
-print("   4. ✅ ENHANCED: Better visual recommendations summary")
-print("\n📝 USER INPUTS (Only 4):")
-print("   1. Product Name")
-print("   2. Purpose of Packaging") 
-print("   3. Budget Preference")
-print("   4. Expected Shelf Life")
-print("\n🤖 BACKEND AUTO-DETECTS:")
-print("   • Product state, viscosity, pH level")
-print("   • Barrier requirements (oxygen, moisture, light)")
-print("   • Industry category and target market")
-print("   • Safety requirements and sustainability")
-print("   • And 6 more parameters..."))
