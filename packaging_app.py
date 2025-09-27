@@ -1,5 +1,3 @@
-# Create the comprehensive Streamlit app with all features
-comprehensive_streamlit_code = '''
 import streamlit as st
 import json
 import os
@@ -47,7 +45,7 @@ def calculate_packaging_score(user_inputs, material_name, material_data, db):
         material_barrier = material_data['characteristics'][f'{barrier_type}_barrier'].lower()
         
         if user_need in barrier_scoring.get(barrier_type, {}):
-            need_mapping = barrier_scoring[barrier_type][user_need + "_need" if user_need != "None" else "None"]
+            need_mapping = barrier_scoring[barrier_type][user_need]
             barrier_points = need_mapping.get(material_barrier.title(), 0)
             barrier_score += barrier_points
             
@@ -114,7 +112,7 @@ def calculate_packaging_score(user_inputs, material_name, material_data, db):
     total_score += rule_bonuses
     
     if rule_bonuses > 0:
-        scoring_details.append(f"🎯 Rule bonuses: +{rule_bonuses}")
+        scoring_details.append(f"🎯 Rule bonuses: +{rule_bonuses:.1f}")
     
     final_score = min(100, (total_score / max_possible_score) * 100) if max_possible_score > 0 else 0
     
@@ -218,7 +216,7 @@ def generate_recommendation_reasons(user_inputs, material_data, score):
 
 def main():
     st.set_page_config(
-        page_title="🎯 Smart Packaging Advisor",
+        page_title="🎯 Smart Packaging Advisor Pro",
         page_icon="📦",
         layout="wide",
         initial_sidebar_state="expanded"
@@ -234,7 +232,6 @@ def main():
     
     # Sidebar navigation
     with st.sidebar:
-        st.image("https://via.placeholder.com/300x150/1f77b4/ffffff?text=Packaging+Advisor", width=250)
         st.markdown("### 🧭 Navigation")
         
         page = st.radio("Select Function:", [
@@ -244,6 +241,12 @@ def main():
             "📊 Material Database",
             "⚙️ System Info"
         ])
+        
+        st.markdown("---")
+        st.markdown("### 📊 Quick Stats")
+        st.metric("Products", len(db.get("products", {})))
+        st.metric("Materials", len(db.get("packaging_materials", {})))
+        st.metric("Rules", len(db.get("recommendation_rules", {})))
     
     if page == "🎯 Get Smart Recommendations":
         recommendation_page(db)
@@ -773,25 +776,3 @@ def system_info_page(db):
 
 if __name__ == "__main__":
     main()
-'''
-
-# Save the comprehensive app
-with open('smart_packaging_advisor_pro.py', 'w') as f:
-    f.write(comprehensive_streamlit_code)
-
-print("✅ COMPREHENSIVE SMART PACKAGING ADVISOR CREATED!")
-print("\n🎯 FEATURES INCLUDED:")
-print("   ✅ 30+ Input Parameters in organized tabs")
-print("   ✅ Advanced AI Scoring Algorithm")
-print("   ✅ Intelligent Recommendation Rules")
-print("   ✅ Professional Material Database")
-print("   ✅ Product Database Browser")
-print("   ✅ New Product Creation")
-print("   ✅ Technical Specifications")
-print("   ✅ Sustainability Analysis")
-print("   ✅ Cost Optimization")
-print("   ✅ Professional UI with Sidebar Navigation")
-print("\n📁 FILES CREATED:")
-print("   1. smart_packaging_advisor_pro.py - Complete app")
-print("   2. comprehensive_packaging_db.json - Full database")
-print("\n🚀 TO RUN: streamlit run smart_packaging_advisor_pro.py")
