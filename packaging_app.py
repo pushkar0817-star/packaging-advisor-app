@@ -19,6 +19,74 @@ def save_database(db):
     with open(DB_FILE, "w") as f:
         json.dump(db, f, indent=2)
 
+def get_search_suggestions(query, db, max_suggestions=5):
+    """Get search suggestions based on user input"""
+    if not query or len(query) < 1:
+        return []
+
+    query_lower = query.lower()
+    suggestions = []
+
+    # Get all product names from database
+    products = db.get("products", {})
+    product_names = list(products.keys())
+
+    # Add common food products that might not be in database
+    common_foods = [
+        "Apple Juice", "Banana", "Butter", "Cheese", "Chicken", "Cookies", 
+        "Crackers", "Eggs", "Fish", "Flour", "Jam", "Ketchup", "Lemon", 
+        "Meat", "Noodles", "Onion", "Pepper", "Salt", "Sugar", "Tea", 
+        "Tomato", "Vinegar", "Wine", "Biscuits", "Cake", "Candy", 
+        "Ice Cream", "Nuts", "Pickles", "Sauce", "Spices", "Vegetables",
+        "Fruit Juice", "Energy Drink", "Soda", "Water Bottle", "Sports Drink",
+        "Protein Powder", "Granola Bars", "Trail Mix", "Dried Fruits"
+    ]
+
+    all_products = product_names + common_foods
+
+    # Find matches
+    for product in all_products:
+        if query_lower in product.lower():
+            # Prioritize exact matches and database products
+            priority = 0
+            if product in product_names:
+                priority += 10  # Database products get higher priority
+            if product.lower().startswith(query_lower):
+                priority += 5   # Starting matches get higher priority
+            if product.lower() == query_lower:
+                priority += 20  # Exact matches get highest priority
+
+            suggestions.append((product, priority))
+
+    # Sort by priority and return top suggestions
+    suggestions.sort(key=lambda x: x[1], reverse=True)
+    return [suggestion[0] for suggestion in suggestions[:max_suggestions]]
+
+def display_search_suggestions(suggestions, query):
+    """Display search suggestions in a nice format"""
+    if not suggestions:
+        return None
+
+    st.markdown("**💡 Suggestions:**")
+
+    # Create columns for suggestions
+    if len(suggestions) <= 3:
+        cols = st.columns(len(suggestions))
+    else:
+        cols = st.columns(3)
+
+    selected_suggestion = None
+
+    for i, suggestion in enumerate(suggestions[:6]):  # Show max 6 suggestions
+        col_index = i % len(cols)
+
+        with cols[col_index]:
+            # Create a button for each suggestion
+            if st.button(f"🔍 {suggestion}", key=f"suggestion_{i}", use_container_width=True):
+                selected_suggestion = suggestion
+
+    return selected_suggestion
+
 def get_auto_parameters(product_name, purpose, cost, shelf_life, db):
     """Automatically determine the 15 parameters based on user inputs and database"""
 
@@ -54,62 +122,98 @@ def get_auto_parameters(product_name, purpose, cost, shelf_life, db):
     product_lower = product_name.lower()
     purpose_lower = purpose.lower()
 
-    # Industry category detection
-    if any(word in product_lower for word in ["tablet", "capsule", "medicine", "vitamin", "drug", "pharmaceutical"]):
-        auto_params["industry_category"] = "Pharma"
-        auto_params["product_state"] = "Solid"
-        auto_params["viscosity"] = "N/A"
-        auto_params["oxygen_sensitivity"] = "High"
-        auto_params["moisture_sensitivity"] = "High"
-        auto_params["light_sensitivity"] = "High"
-        auto_params["safety_requirements"] = ["Child resistant"]
-        auto_params["brand_positioning"] = "Standard"
-
-    elif any(word in product_lower for word in ["cream", "lotion", "shampoo", "cosmetic", "beauty", "skincare"]):
-        auto_params["industry_category"] = "Cosmetic"
-        auto_params["product_state"] = "Semi-solid" if "cream" in product_lower else "Liquid"
-        auto_params["viscosity"] = "High" if "cream" in product_lower else "Medium"
-        auto_params["oxygen_sensitivity"] = "Low"
-        auto_params["light_sensitivity"] = "Medium"
-        auto_params["brand_positioning"] = "Premium"
-
-    elif any(word in product_lower for word in ["juice", "milk", "oil", "water", "drink", "beverage"]):
+    # Beverages
+    if any(word in product_lower for word in ["juice", "drink", "beverage", "soda", "water", "tea", "coffee"]):
         auto_params["industry_category"] = "Food"
         auto_params["product_state"] = "Liquid"
         auto_params["viscosity"] = "Low"
-        if "milk" in product_lower or "juice" in product_lower:
+        auto_params["target_market"] = "Consumer retail"
+        if any(word in product_lower for word in ["orange", "apple", "fruit"]):
             auto_params["oxygen_sensitivity"] = "High"
             auto_params["light_sensitivity"] = "High"
-            auto_params["storage_temperature"] = "Cold"
+            auto_params["ph_level"] = "Acidic"
 
-    elif any(word in product_lower for word in ["chemical", "adhesive", "solvent", "cleaner"]):
-        auto_params["industry_category"] = "Chemical"
+    # Dairy products
+    elif any(word in product_lower for word in ["milk", "cheese", "butter", "yogurt", "cream"]):
+        auto_params["industry_category"] = "Food"
+        auto_params["product_state"] = "Liquid" if "milk" in product_lower else "Semi-solid"
+        auto_params["storage_temperature"] = "Cold"
         auto_params["oxygen_sensitivity"] = "Medium"
-        auto_params["moisture_sensitivity"] = "High"
-        auto_params["safety_requirements"] = ["Hazmat"]
+        auto_params["light_sensitivity"] = "High"
+        auto_params["shelf_life_requirement"] = "Weeks"
 
-    elif any(word in product_lower for word in ["electronic", "device", "phone", "computer"]):
-        auto_params["industry_category"] = "Electronics"
+    # Oils and liquids
+    elif any(word in product_lower for word in ["oil", "vinegar", "sauce", "honey", "syrup"]):
+        auto_params["product_state"] = "Liquid"
+        auto_params["viscosity"] = "High" if any(word in product_lower for word in ["honey", "syrup"]) else "Medium"
+        auto_params["oxygen_sensitivity"] = "High"
+        auto_params["light_sensitivity"] = "High"
+
+    # Grains and dry goods
+    elif any(word in product_lower for word in ["rice", "pasta", "flour", "cereal", "grain", "oats"]):
         auto_params["product_state"] = "Solid"
         auto_params["viscosity"] = "N/A"
         auto_params["moisture_sensitivity"] = "High"
-        auto_params["safety_requirements"] = ["Anti-static"]
-        auto_params["fragility_level"] = "Very Fragile"
+        auto_params["oxygen_sensitivity"] = "Low"
+        auto_params["storage_temperature"] = "Ambient"
+        auto_params["brand_positioning"] = "Value"
+
+    # Snacks
+    elif any(word in product_lower for word in ["chips", "crackers", "cookies", "biscuits", "nuts"]):
+        auto_params["product_state"] = "Solid"
+        auto_params["viscosity"] = "N/A"
+        auto_params["fragility_level"] = "Very Fragile" if "chips" in product_lower else "Fragile"
+        auto_params["oxygen_sensitivity"] = "High"
+        auto_params["moisture_sensitivity"] = "High"
+
+    # Meat and fish
+    elif any(word in product_lower for word in ["meat", "chicken", "fish", "beef", "pork"]):
+        auto_params["product_state"] = "Solid"
+        auto_params["storage_temperature"] = "Cold"
+        auto_params["oxygen_sensitivity"] = "High"
+        auto_params["shelf_life_requirement"] = "Days"
+        auto_params["safety_requirements"] = ["Sterile"]
+
+    # Frozen foods
+    elif any(word in product_lower for word in ["frozen", "ice cream"]):
+        auto_params["storage_temperature"] = "Frozen"
+        auto_params["oxygen_sensitivity"] = "High"
+        auto_params["moisture_sensitivity"] = "High"
+
+    # Canned goods
+    elif any(word in product_lower for word in ["canned", "soup", "beans"]):
+        auto_params["product_state"] = "Liquid" if "soup" in product_lower else "Semi-solid"
+        auto_params["oxygen_sensitivity"] = "None"
+        auto_params["moisture_sensitivity"] = "None"
+        auto_params["shelf_life_requirement"] = "Years"
+        auto_params["brand_positioning"] = "Value"
+
+    # Confectionery
+    elif any(word in product_lower for word in ["chocolate", "candy", "cake", "jam"]):
+        auto_params["product_state"] = "Solid"
+        auto_params["viscosity"] = "N/A"
+        auto_params["moisture_sensitivity"] = "High"
+        auto_params["light_sensitivity"] = "High"
+        auto_params["brand_positioning"] = "Premium"
+
+    # Baby food
+    elif any(word in product_lower for word in ["baby", "infant"]):
+        auto_params["product_state"] = "Semi-solid"
+        auto_params["safety_requirements"] = ["Tamper evident"]
+        auto_params["brand_positioning"] = "Premium"
+        auto_params["oxygen_sensitivity"] = "High"
 
     # Purpose-based adjustments
-    if "food" in purpose_lower:
-        auto_params["industry_category"] = "Food"
-        auto_params["oxygen_sensitivity"] = "High"
-        auto_params["target_market"] = "Consumer retail"
+    if "food" in purpose_lower or "storage" in purpose_lower:
+        auto_params["oxygen_sensitivity"] = "High" if auto_params["oxygen_sensitivity"] == "Medium" else auto_params["oxygen_sensitivity"]
 
-    elif "medical" in purpose_lower or "health" in purpose_lower:
-        auto_params["industry_category"] = "Pharma"
-        auto_params["target_market"] = "Medical"
+    elif "medical" in purpose_lower or "safety" in purpose_lower:
         auto_params["safety_requirements"] = ["Sterile", "Tamper evident"]
+        auto_params["brand_positioning"] = "Premium"
 
-    elif "industrial" in purpose_lower:
-        auto_params["target_market"] = "Industrial"
-        auto_params["fragility_level"] = "Robust"
+    elif "display" in purpose_lower:
+        auto_params["brand_positioning"] = "Premium"
+        auto_params["sustainability_priority"] = "Balanced"
 
     # Cost-based adjustments
     if cost == "Premium":
@@ -123,6 +227,8 @@ def get_auto_parameters(product_name, purpose, cost, shelf_life, db):
     if shelf_life in ["Months", "Years"]:
         auto_params["oxygen_sensitivity"] = "High"
         auto_params["moisture_sensitivity"] = "High"
+    elif shelf_life == "Days":
+        auto_params["storage_temperature"] = "Cold"
 
     return auto_params
 
@@ -379,12 +485,42 @@ def recommendation_page(db):
         with col2:
             st.markdown("### 📝 Tell us about your product")
 
-            # Question 1: Product Name
-            product_name = st.text_input(
-                "🏷️ **1. What is your product name?**", 
-                placeholder="e.g., Premium Face Cream, Orange Juice, Vitamin C Tablets",
-                help="Enter the name of your product"
+            # Question 1: Product Name with Search Suggestions
+            st.markdown("🏷️ **1. What is your product name?**")
+
+            # Initialize session state for product name if not exists
+            if 'product_name_input' not in st.session_state:
+                st.session_state.product_name_input = ""
+
+            # Create text input
+            product_name_query = st.text_input(
+                "Product Name:",
+                value=st.session_state.product_name_input,
+                placeholder="e.g., Orange Juice, Potato Chips, Chocolate...",
+                help="Start typing and see suggestions appear",
+                label_visibility="collapsed"
             )
+
+            # Get and display suggestions
+            if product_name_query and len(product_name_query) >= 1:
+                suggestions = get_search_suggestions(product_name_query, db)
+                if suggestions:
+                    selected_suggestion = display_search_suggestions(suggestions, product_name_query)
+                    if selected_suggestion:
+                        st.session_state.product_name_input = selected_suggestion
+                        product_name_query = selected_suggestion
+                        st.rerun()
+
+            # Use the final product name
+            product_name = product_name_query
+
+            # Show if product is in database
+            if product_name and product_name in db.get("products", {}):
+                st.success(f"✅ Found '{product_name}' in our database!")
+            elif product_name and len(product_name) > 2:
+                st.info(f"📦 Will analyze '{product_name}' using AI detection")
+
+            st.markdown("---")
 
             # Question 2: Purpose
             purpose = st.selectbox(
@@ -728,6 +864,7 @@ def system_info_page(db):
     with col2:
         st.subheader("🎯 System Features")
         st.write("✅ AI-Powered Recommendations")
+        st.write("✅ Google-like Search Suggestions")
         st.write("✅ Just 4 Simple Questions")
         st.write("✅ Auto Parameter Detection")
         st.write("✅ Advanced Scoring Algorithm")
@@ -738,11 +875,12 @@ def system_info_page(db):
     st.subheader("🤖 How It Works")
     st.write("""
     **Smart Packaging Advisor Pro** uses AI to:
-    1. **Analyze** your product name and purpose
-    2. **Auto-detect** 15+ technical parameters  
-    3. **Score** compatibility with packaging materials
-    4. **Recommend** the best 3 packaging solutions
-    5. **Explain** why each solution works for your product
+    1. **Search** with Google-like suggestions as you type
+    2. **Analyze** your product name and purpose
+    3. **Auto-detect** 15+ technical parameters  
+    4. **Score** compatibility with packaging materials
+    5. **Recommend** the best 3 packaging solutions
+    6. **Explain** why each solution works for your product
     """)
 
     # Footer
