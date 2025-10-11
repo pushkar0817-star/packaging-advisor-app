@@ -5,6 +5,13 @@ from datetime import datetime
 
 DB_FILE = "packaging_db.json"
 
+# Optional: advanced autocomplete
+try:
+    from streamlit_searchbox import st_searchbox  # pip install streamlit-searchbox
+    HAS_SEARCHBOX = True
+except Exception:
+    HAS_SEARCHBOX = False
+
 # Load database
 @st.cache_data
 def load_database():
@@ -43,28 +50,37 @@ def get_all_food_products():
         "Instant Coffee", "Espresso", "Cappuccino Mix", "Hot Chocolate"
     ]
 
-def search_products(query, db):
-    if not query or len(query) < 1:
-        return []
+# Ranked suggestions helper
+def ranked_suggestions(query: str, db, max_out: int = 8):
     all_products = get_all_food_products()
-    db_products = list(db.get("products", {}).keys())
+    db_products = set(db.get("products", {}).keys())
+    if not query:
+        # Default: show DB items first
+        base = sorted(all_products, key=lambda x: (0 if x in db_products else 1, x))
+        return base[:max_out]
     q = query.lower()
-    matches = []
-    for p in all_products:
-        pl = p.lower()
-        if q in pl:
-            # priority: exact > in DB > startswith > contains
-            if pl == q:
-                pri = 0
-            elif p in db_products:
-                pri = 1
-            elif pl.startswith(q):
-                pri = 2
+    scored = []
+    for opt in all_products:
+        ol = opt.lower()
+        if q in ol:
+            # Lower score = higher rank
+            if ol == q:
+                score = 0
+            elif opt in db_products:
+                score = 1
+            elif ol.startswith(q):
+                score = 2
             else:
-                pri = 3
-            matches.append((pri, p))
-    matches.sort(key=lambda x: (x[0], x[1]))
-    return [p for _, p in matches[:10]]
+                score = 3
+            scored.append((score, opt))
+    scored.sort(key=lambda x: (x[0], x[1]))
+    return [s[1] for s in scored[:max_out]]
+
+# Fallback search for legacy UI
+def search_products(query, db):
+    return ranked_suggestions(query, db, max_out=10)
+
+# ====== Recommendation engine (same as before) ======
 
 def get_auto_parameters(product_name, purpose, cost, shelf_life, db):
     auto_params = {
@@ -92,7 +108,6 @@ def get_auto_parameters(product_name, purpose, cost, shelf_life, db):
         auto_params["shelf_life_requirement"] = shelf_life
         return auto_params
     pl = product_name.lower()
-    pur = purpose.lower()
     if any(w in pl for w in ["juice","drink","beverage","soda","water","tea","coffee","milk"]):
         auto_params["product_state"] = "Liquid"
         auto_params["viscosity"] = "Low"
@@ -332,37 +347,77 @@ def main():
 def recommendation_page(db):
     st.header("🎯 Get Smart Packaging Recommendations")
     st.markdown("*Answer just 4 simple questions to get AI-powered packaging suggestions*")
-    with st.container():
-        col1, col2, col3 = st.columns([1,2,1])
-        with col2:
-            st.markdown("### 📝 Tell us about your product")
-            st.markdown("🏷️ **1. What is your product name?**")
-            typed = st.text_input("Start typing a product name", placeholder="e.g., Orange Juice, Chocolate, Rice")
-            suggestions = search_products(typed, db)
-            select_options = []
-            if typed:
-                select_options.append(f"Use typed: {typed}")
-            select_options += suggestions if suggestions else get_all_food_products()[:10]
-            selected_opt = st.selectbox("Suggestions", select_options, index=0 if select_options else None)
-            if selected_opt and selected_opt.startswith("Use typed: "):
-                product_name = selected_opt.replace("Use typed: ", "")
-            else:
-                product_name = selected_opt or typed
-            if product_name:
-                if product_name in db.get("products", {}):
-                    st.success(f"✅ Found '{product_name}' in our database!")
-                else:
-                    st.info(f"📦 Will analyze '{product_name}' using AI detection")
-            st.markdown("---")
-            purpose = st.selectbox("🎯 **2. What is the main purpose of packaging?**", ["Protection & Storage","Retail Display","Transportation","Medical Safety","Food Safety","Industrial Use"])
-            cost = st.selectbox("💰 **3. What is your budget preference?**", ["Economy","Standard","Premium"])
-            shelf_life = st.selectbox("⏰ **4. How long should the product last?**", ["Days","Weeks","Months","Years"])
+
+    # =====================
+    # Product name input
+    # =====================
+    st.markdown("### 📝 Tell us about your product")
+    st.markdown("🏷️ **1. What is your product name?**")
+
+    db_products = list(db.get("products", {}).keys())
+
+    product_name = None
+
+    if HAS_SEARCHBOX:
+        # True Google-like behavior with dropdown that autofills the same field
+        def _search_fn(searchterm: str):
+            return ranked_suggestions(searchterm, db, max_out=8)
+        default_val = st.session_state.get("product_name", "")
+        product_name = st_searchbox(
+            search_function=_search_fn,
+            placeholder="Start typing... e.g., Orange Juice, Chocolate, Rice",
+            default=default_val,
+            key="product_searchbox",
+        )
+        if product_name is None:
+            # st_searchbox returns None until user selects or enters
+            product_name = default_val
+        else:
+            st.session_state.product_name = product_name
+    else:
+        # Fallback: text_input + live suggestions below; click to autofill
+        typed = st.text_input(
+            "Product Name",
+            value=st.session_state.get("product_name", ""),
+            placeholder="Start typing... e.g., Orange Juice, Chocolate, Rice",
+        )
+        suggestions = ranked_suggestions(typed, db, max_out=8)
+        if suggestions:
+            st.caption("Suggestions (click to autofill):")
+            cols = st.columns(2)
+            for i, sug in enumerate(suggestions):
+                with cols[i % 2]:
+                    if st.button(f"🔍 {sug}", key=f"sug_{i}", use_container_width=True):
+                        st.session_state.product_name = sug
+                        st.experimental_rerun()
+        product_name = st.session_state.get("product_name", typed)
+        if not HAS_SEARCHBOX:
+            st.info("Tip: For Google-like dropdown in the same field, install 'streamlit-searchbox' and restart: pip install streamlit-searchbox")
+
+    if product_name:
+        if product_name in db_products:
+            st.success(f"✅ Found '{product_name}' in our database!")
+        else:
+            st.info(f"📦 Will analyze '{product_name}' using AI detection")
+
     st.markdown("---")
+
+    # Remaining 3 inputs
+    purpose = st.selectbox(
+        "🎯 **2. What is the main purpose of packaging?**",
+        ["Protection & Storage","Retail Display","Transportation","Medical Safety","Food Safety","Industrial Use"]
+    )
+    cost = st.selectbox("💰 **3. What is your budget preference?**", ["Economy","Standard","Premium"])
+    shelf_life = st.selectbox("⏰ **4. How long should the product last?**", ["Days","Weeks","Months","Years"])
+
+    st.markdown("---")
+
     if st.button("🎯 Get My Packaging Recommendations", type="primary", use_container_width=True):
         if not product_name:
             st.error("❌ Please enter or select a product name first!")
             return
         with st.spinner("🤖 AI is analyzing your product and generating recommendations..."):
+            db = load_database()
             auto_params = get_auto_parameters(product_name, purpose, cost, shelf_life, db)
             recommendations = get_packaging_recommendations(auto_params, db)
         if not recommendations:
@@ -569,7 +624,7 @@ def system_info_page(db):
     with col2:
         st.subheader("🎯 System Features")
         st.write("✅ AI-Powered Recommendations")
-        st.write("✅ Smart Typeahead Suggestions")
+        st.write("✅ Google-like Autocomplete (uses streamlit-searchbox if installed)")
         st.write("✅ Just 4 Simple Questions")
         st.write("✅ Auto Parameter Detection")
         st.write("✅ Advanced Scoring Algorithm")
@@ -578,9 +633,9 @@ def system_info_page(db):
         st.write("✅ Cost Optimization")
     st.subheader("🤖 How It Works")
     st.write("""
-    • Type in product and pick a suggestion or use the typed text
+    • Start typing product name and pick from dropdown (or click a suggestion in fallback mode)
     • AI auto-detects key parameters and scores materials
-    • You get the top 3 packaging recommendations with reasons
+    • Get top packaging recommendations with reasons
     """)
     st.markdown("---")
     st.markdown("""
